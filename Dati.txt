@@ -1,0 +1,6 @@
+MongoDB Capstone:
+Username: marcellopastore4
+Password:wp3ikeGVOI53AXeU
+
+mongodb+srv://marcellopastore4:wp3ikeGVOI53AXeU@gamelink.mdzbr3l.mongodb.net/
+
