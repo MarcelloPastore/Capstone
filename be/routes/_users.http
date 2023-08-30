@@ -1,0 +1,30 @@
+GET http://localhost:6969/users
+
+#####
+POST http://localhost:6969/user/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Marcello",
+    "surname": "Pastore",
+    "age": 21,
+    "email": "marcellopastore4@gmail.com",
+    "nickname": "Mistiko009",
+    "password": "Mistiko009"
+}
+
+#####
+PATCH http://localhost:6969/user/64ef8ba0039737b60c1e9d67
+Content-Type: application/json
+
+{
+    "name": "Pippo",
+    "surname": "Ciccio",
+    "age": 69,
+    "email": "pippoCiccio@gmail.com",
+    "nickname": "Pippos69",
+    "password": "pippociccio99"
+}
+
+#####
+DELETE http://localhost:6969/user/64ef8baf039737b60c1e9d6b

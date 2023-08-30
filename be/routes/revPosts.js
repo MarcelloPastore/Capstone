@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const RevPostModel = require('../models/revPostModel.js');
+const { revBodyParams, validateRevBody } = require('../middlewares/revValidator.js');
 
 
 
@@ -54,7 +55,7 @@ try {
 });
 
 // ! Post request ----------------------------------------------------------------------------------------------
-revPost.post('/revPosts/create', async (req,res) => {
+revPost.post('/revPosts/create',revBodyParams, validateRevBody, async (req,res) => {
     const newRev = new RevPostModel({
         title:req.body.title,
         img1:req.body.img1,

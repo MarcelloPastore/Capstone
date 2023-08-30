@@ -2,10 +2,21 @@ POST http://localhost:6969/revPosts/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "titolo 4",
-    "description": "description of the fourth post",
+    "title": "titolo 5",
+    "description": "description of 15+ characters",
     "nickname": "Mistiko009"
 }
 
 ########
 GET http://localhost:6969/revPosts
+
+#####
+PATCH http://localhost:6969/revPost/64ef7669c86ca096e11b373c
+Content-Type: application/json
+
+{
+    "title": "titolo 1"
+}
+
+#####
+DELETE http://localhost:6969/revPost

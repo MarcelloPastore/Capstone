@@ -10,7 +10,7 @@ const revBodyParams = [
         .notEmpty()
         .isString()
         .isLength({ min: 15 })
-        .withMessage('Description is required'),
+        .withMessage('Description is required and must be at least 15 characters'),
 
     body('nickname')
         .notEmpty()
