@@ -1,0 +1,11 @@
+POST http://localhost:6969/revPosts/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "titolo 4",
+    "description": "description of the fourth post",
+    "nickname": "Mistiko009"
+}
+
+########
+GET http://localhost:6969/revPosts

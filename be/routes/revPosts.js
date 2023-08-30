@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const RevPostModel = require('../models/revPostModel.js');
 
+
+
+
 const revPost = express.Router()
 
 
@@ -20,7 +23,8 @@ revPost.get('/revPosts', async (req, res) => {
             statusCode: 200,
             reviewPosts: revPosts
         });
-        console.log("Post richiamati")
+        // controllo
+        // console.log("Post richiamati")
     } catch (error) {
         res.status(500).send({
             statusCode: 500,
