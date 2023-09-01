@@ -8,7 +8,7 @@ require('dotenv').config();
 
 // require dei middleware
 const logger = require('./middlewares/logger');
-const cacheMiddleware = require('./middlewares/cacheMiddleware');
+
 // require routes
 const revPostRoute = require('./routes/revPosts');
 const usersRoute = require('./routes/users');
@@ -16,7 +16,7 @@ const usersRoute = require('./routes/users');
 app.use(cors());
 app.use(express.json());
 app.use(logger);
-app.use(cacheMiddleware);
+
 
 // import routes
 app.use('/', revPostRoute);
