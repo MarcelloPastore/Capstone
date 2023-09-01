@@ -6,24 +6,39 @@ const { revBodyParams, validateRevBody } = require('../middlewares/revValidator.
 
 const revPost = express.Router(); // Create an Express Router for review posts
 
-//! GET request to fetch all review posts
+// GET request to fetch all review posts with sorting and pagination
 revPost.get('/revPosts', async (req, res) => {
+    const { page = 1, pageSize = 5 } = req.query;
+
     try {
-        // Fetch all review posts from the database
-        const revPosts = await RevPostModel.find();
-        
+        // Define sorting criteria: Sort by date (newest first) and then by likes (most likes first)
+        const sortCriteria = [
+            { $sort: { likes: -1, createdAt: -1 } },
+            { $skip: (page - 1) * pageSize },
+            { $limit: parseInt(pageSize) },
+        ];
+
+        // Use aggregation pipeline to fetch review posts with sorting and pagination
+        const posts = await RevPostModel.aggregate(sortCriteria);
+
+        // Fetch the total number of review posts (for pagination)
+        const totalPosts = await RevPostModel.countDocuments();
+
         // If there are no review posts, return a 404 error
-        if (!revPosts || revPosts.length === 0) {
+        if (!posts || posts.length === 0) {
             return res.status(404).send({
                 statusCode: 404,
                 message: 'No revPost found in db'
             });
         } 
-        
-        // Return a 200 response with the list of review posts
+
+        // Return a 200 response with the sorted and paginated review posts
         res.status(200).send({
             statusCode: 200,
-            reviewPosts: revPosts
+            totalPosts: totalPosts,
+            currentPage: +page,
+            pageSize: +pageSize,
+            reviewPosts: posts
         });
     } catch (error) {
         // Handle internal server error
@@ -34,7 +49,8 @@ revPost.get('/revPosts', async (req, res) => {
         });
     }
 });
-//! GET request to fetch users posts by nickname
+
+//! GET request to fetch user's posts by nickname
 revPost.get('/revPosts/byNickname', async (req, res) => {
     const { userNickname } = req.query;
 
@@ -46,7 +62,7 @@ revPost.get('/revPosts/byNickname', async (req, res) => {
         if (!postByNickname) {
             return res.status(404).send({
                 statusCode: 404,
-                message: 'User not found'
+                message: 'Post not found'
             });
         }
 
@@ -54,6 +70,40 @@ revPost.get('/revPosts/byNickname', async (req, res) => {
         res.status(200).send({
             statusCode: 200,
             payload: postByNickname
+        });
+    } catch (error) {
+        // Handle internal server error
+        res.status(500).send({
+            statusCode: 500,
+            error: "Internal server error"
+        });
+    }
+});
+
+//! GET request to fetch posts by title
+revPost.get('/revPosts/title', async (req, res) => {
+    const { postTitle } = req.query;
+
+    try {
+        // Find users posts by nickname in the database
+        const postByTitle = await RevPostModel.find({
+            title: {
+                $regex: '.*' + postTitle + '.*',
+                $options: 'i',
+            }
+        });
+
+        if (!postByTitle) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: `Post ${postTitle} not found`
+            });
+        }
+
+        // Return a 200 response with the matching users
+        res.status(200).send({
+            statusCode: 200,
+            payload: postByTitle
         });
     } catch (error) {
         // Handle internal server error

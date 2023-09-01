@@ -2,7 +2,7 @@ POST http://localhost:6969/revPosts/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "titolo 8",
+    "title": "titolo 20",
     "description": "description of 15+ characters",
     "nickname": "Mistiko009"
 }
@@ -11,14 +11,20 @@ Content-Type: application/json
 GET http://localhost:6969/revPosts
 
 #####
+GET http://localhost:6969/revPosts?page=2
+
+#####
+GET http://localhost:6969/revPosts/title?postTitle=titolo
+
+#####
 GET http://localhost:6969/revPosts/byNickname?userNickname=Mistiko009
 
 #####
-PATCH http://localhost:6969/revPost/64ef7669c86ca096e11b373c
+PATCH http://localhost:6969/revPost/64f216a313294dcda14f763d
 Content-Type: application/json
 
 {
-    "title": "titolo 1"
+    "likes": 10
 }
 
 #####
