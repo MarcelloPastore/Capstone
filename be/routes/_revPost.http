@@ -2,9 +2,9 @@ POST http://localhost:6969/revPosts/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "titolo 20",
+    "title": "titolo 1",
     "description": "description of 15+ characters",
-    "nickname": "Mistiko009"
+    "user": "64f844d994a234292f5ba5fb"
 }
 
 ########

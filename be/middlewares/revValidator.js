@@ -12,10 +12,10 @@ const revBodyParams = [
         .isLength({ min: 15 })
         .withMessage('Description is required and must be at least 15 characters'),
 
-    body('nickname')
+    body('user')
         .notEmpty()
         .isString()
-        .withMessage('Nickname is required'),
+        .withMessage('User ID is required'),
 ];
 
 const validateRevBody = (req, res, next) => {

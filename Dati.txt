@@ -1,6 +1,7 @@
 MongoDB Capstone:
 Username: marcellopastore4
-Password:wp3ikeGVOI53AXeU
+Password: wp3ikeGVOI53AXeU
 
 mongodb+srv://marcellopastore4:wp3ikeGVOI53AXeU@gamelink.mdzbr3l.mongodb.net/
 
+Nota bene, questi dati verranno eliminati una volta terminato il progetto, attualmente servono per muovere l'attuale progetto da una macchina all'altra senza perdere i dati di accesso al server

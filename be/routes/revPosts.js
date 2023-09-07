@@ -6,20 +6,19 @@ const { revBodyParams, validateRevBody } = require('../middlewares/revValidator.
 
 const revPost = express.Router(); // Create an Express Router for review posts
 
-// GET request to fetch all review posts with sorting and pagination
+/// GET request to fetch all review posts
 revPost.get('/revPosts', async (req, res) => {
     const { page = 1, pageSize = 5 } = req.query;
 
     try {
-        // Define sorting criteria: Sort by date (newest first) and then by likes (most likes first)
-        const sortCriteria = [
-            { $sort: { likes: -1, createdAt: -1 } },
-            { $skip: (page - 1) * pageSize },
-            { $limit: parseInt(pageSize) },
-        ];
+        // Use Mongoose query to fetch review posts with pagination and populate 'user' field
+        const posts = await RevPostModel.find()
+            .limit(pageSize)
+            .skip((page - 1) * pageSize)
+            .populate('user'); // Populate the 'user' field
 
-        // Use aggregation pipeline to fetch review posts with sorting and pagination
-        const posts = await RevPostModel.aggregate(sortCriteria);
+        // Fetch all review posts from the database (this line is not necessary)
+        // const revPosts = await RevPostModel.find();
 
         // Fetch the total number of review posts (for pagination)
         const totalPosts = await RevPostModel.countDocuments();
@@ -31,8 +30,8 @@ revPost.get('/revPosts', async (req, res) => {
                 message: 'No revPost found in db'
             });
         } 
-
-        // Return a 200 response with the sorted and paginated review posts
+        
+        // Return a 200 response with the list of review posts
         res.status(200).send({
             statusCode: 200,
             totalPosts: totalPosts,
@@ -50,13 +49,14 @@ revPost.get('/revPosts', async (req, res) => {
     }
 });
 
+
 //! GET request to fetch user's posts by nickname
 revPost.get('/revPosts/byNickname', async (req, res) => {
-    const { userNickname } = req.query;
+    const { userNickname} = req.query;
 
     try {
         // Find users posts by nickname in the database
-        const postByNickname = await RevPostModel.find({ nickname: userNickname })
+        const postByNickname = await RevPostModel.find({ author: { nickname: userNickname } })
 
         // If no users posts are found, return a 404 error
         if (!postByNickname) {
@@ -139,18 +139,17 @@ revPost.get('/revPost/:revID', async (req, res) => {
 
 //! POST request to create a new review post
 revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res) => {
-    // Create a new review post object with data from the request body
-    const newRev = new RevPostModel({
-        title: req.body.title,
-        img1: req.body.img1,
-        img2: req.body.img2,
-        description: req.body.description,
-        likes: 0,
-        views: 0,
-        nickname: req.body.nickname
-    });
-
     try {
+         // Create a new review post object with data from the request body
+        const newRev = new RevPostModel({
+            title: req.body.title,
+            img1: req.body.img1,
+            img2: req.body.img2,
+            description: req.body.description,
+            likes: 0,
+            views: 0,
+            user: req.body.user
+        });
         // Save the new review post to the database
         const review = await newRev.save();
 

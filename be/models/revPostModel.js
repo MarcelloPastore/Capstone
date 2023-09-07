@@ -32,12 +32,12 @@ const RevPostSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    //Nikname autore
-    nickname: {
-        type: String,
-        required: true
+    //Nickname autore
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {timestamps: true, strict: true});
 
-module.exports = mongoose.model('revPost', RevPostSchema, 'revPosts');
+module.exports = mongoose.model('ReviewPost', RevPostSchema, 'ReviewPosts');
 
