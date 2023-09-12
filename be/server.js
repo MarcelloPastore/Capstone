@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const PORT = 6969;
 const app = express();
 const cors = require('cors');
+const path = require('path');
+
 
 require('dotenv').config();
 
@@ -17,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger);
 
+app.use('./uploads', express.static(path.join(__dirname, './uploads')));
 
 // import routes
 app.use('/', revPostRoute);

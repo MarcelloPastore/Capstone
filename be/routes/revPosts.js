@@ -5,9 +5,44 @@ const RevPostModel = require('../models/revPostModel.js');
 const { revBodyParams, validateRevBody } = require('../middlewares/revValidator.js'); // Import middleware functions
 const CommentModel = require('../models/commentModel.js')
 const UserModel = require('../models/userModel.js')
-
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const crypto = require('crypto');
 const revPost = express.Router(); // Create an Express Router for review posts
 
+
+
+// Multer storage configuration
+const internalStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = `${new Date().toISOString()}-${crypto.randomUUID()}`;
+      const fileExt = file.originalname.split('.').pop();
+      cb(null, `${uniqueSuffix}.${fileExt}`);
+    },
+  });
+  
+  const uploads = multer({ storage: internalStorage });
+  
+  revPost.post('/revPosts/internalUpload', uploads.single('img'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+  
+      const imagePath = req.file.path;
+      res.status(200).json({ img: imagePath });
+    } catch (error) {
+      console.error('File upload failed');
+      res.status(500).json({
+        statusCode: 500,
+        message: 'File upload failed',
+      });
+    }
+  });
 /// GET request to fetch all review posts
 revPost.get('/revPosts', async (req, res) => {
     const { page = 1, pageSize = 5 } = req.query;

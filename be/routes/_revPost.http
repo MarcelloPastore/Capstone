@@ -2,7 +2,7 @@ POST http://localhost:6969/revPosts/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "titolo 1",
+    "title": "titolo 2",
     "description": "description of 15+ characters",
     "user": "65002ae3def869665c07e82a"
 }

@@ -6,11 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import {combineReducers, configureStore } from '@reduxjs/toolkit';
 
-
+import revPostStates from './states/revPostStates';
 
 
 const reducer = combineReducers({
-  // recucers
+  // reducers
+  postState: revPostStates
 });
 
 const store = configureStore({
