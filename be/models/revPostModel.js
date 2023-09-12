@@ -36,7 +36,12 @@ const RevPostSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    //Commenti del post
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 }, {timestamps: true, strict: true});
 
 module.exports = mongoose.model('ReviewPost', RevPostSchema, 'ReviewPosts');

@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const RevPostModel = require('../models/revPostModel.js'); 
 const { revBodyParams, validateRevBody } = require('../middlewares/revValidator.js'); // Import middleware functions
+const CommentModel = require('../models/commentModel.js')
+const UserModel = require('../models/userModel.js')
 
 const revPost = express.Router(); // Create an Express Router for review posts
 
@@ -15,7 +17,8 @@ revPost.get('/revPosts', async (req, res) => {
         const posts = await RevPostModel.find()
             .limit(pageSize)
             .skip((page - 1) * pageSize)
-            .populate('user'); // Populate the 'user' field
+            .populate('user', 'name surname email nickname') // Populate the 'user' field
+            .populate('comments', 'content nickname') 
 
         // Fetch all review posts from the database (this line is not necessary)
         // const revPosts = await RevPostModel.find();
@@ -119,13 +122,81 @@ revPost.get('/revPost/:revID', async (req, res) => {
     const { revID } = req.params;
 
     try {
-        // Find a review post by its ID in the database
-        const revById = await RevPostModel.findById(req.params.revID);
-        
-        // Return a 200 response with the review post data
+        // Find a review post by its ID in the database and populate comments
+        const revById = await RevPostModel.findById(revID).populate({
+            path: 'comments',
+            populate: {
+                path: 'user',
+                select: 'nickname'
+            }
+        });
+
+        if (!revById) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: 'Review post not found'
+            });
+        }
+
+        // Return a 200 response with the review post data and comments
         res.status(200).send({
             statusCode: 200,
             review: revById
+        });
+    } catch (error) {
+        // Handle internal server error
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+});
+
+//! POST request to add a new comment to a review post
+revPost.post('/revPost/:revID/comments', async (req, res) => {
+    const { revID } = req.params;
+
+    try {
+        // Check if the review post exists by ID
+        const postExist = await RevPostModel.findById(revID);
+
+        if (!postExist) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: 'Review post not found'
+            });
+        }
+
+        // Retrieve the user's nickname and content from the 'User' model
+        const user = await UserModel.findById(req.body.user);
+
+        if (!user) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: 'User not found'
+            });
+        }
+
+        // Create a new comment object with user's nickname, content, and other data
+        const newComment = new CommentModel({
+            user: user._id,
+            nickname: user.nickname,
+            content: req.body.content,
+            postId: revID
+        });
+
+        // Save the new comment to the database
+        const comment = await newComment.save();
+
+        // Add the comment's ObjectId to the 'comments' array in the review post
+        postExist.comments.push(comment._id);
+        await postExist.save();
+
+        // Return a 201 response with the created comment data
+        res.status(201).send({
+            statusCode: 201,
+            payload: comment
         });
     } catch (error) {
         // Handle internal server error
