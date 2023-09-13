@@ -11,6 +11,7 @@ const SingleCard = ({img1, _id, title, description, likes, views, user}) => {
         <Card.Body>
             <Card.Title>{title}</Card.Title>
             <Card.Text>{_id}</Card.Text>
+            <Card.Img>{img1}</Card.Img>
             <Card.Text>{description}</Card.Text>
             <Card.Text>{likes}</Card.Text>
             <Card.Text>{views}</Card.Text>

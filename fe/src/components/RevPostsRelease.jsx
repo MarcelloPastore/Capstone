@@ -23,6 +23,8 @@ const RevPostsRelease = () => {
                   img1={post.img1}
                   description={post.description}
                   user={post.user.nickname}
+                  likes={post.likes}
+                  views={post.views}
                 />
               </Col>
             )

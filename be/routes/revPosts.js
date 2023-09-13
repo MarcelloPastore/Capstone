@@ -11,38 +11,36 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const crypto = require('crypto');
 const revPost = express.Router(); // Create an Express Router for review posts
 
-
-
-// Multer storage configuration
-const internalStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-      const uniqueSuffix = `${new Date().toISOString()}-${crypto.randomUUID()}`;
-      const fileExt = file.originalname.split('.').pop();
-      cb(null, `${uniqueSuffix}.${fileExt}`);
-    },
+// cloudinary storage
+cloudinary.config({ 
+    cloud_name: 'do1eu7dnn', 
+    api_key: '228316619334122', 
+    api_secret: 'S81GXJv4Rrq8KIvNa9MjAv2pkvc' 
   });
-  
-  const uploads = multer({ storage: internalStorage });
-  
-  revPost.post('/revPosts/internalUpload', uploads.single('img'), async (req, res) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
-      }
-  
-      const imagePath = req.file.path;
-      res.status(200).json({ img: imagePath });
-    } catch (error) {
-      console.error('File upload failed');
-      res.status(500).json({
-        statusCode: 500,
-        message: 'File upload failed',
-      });
+
+const cloudStorage = new CloudinaryStorage({
+    cloudinary: cloudinary, 
+    params: {
+        folder: 'GamersBlog',
+        format: async (req, file) => 'png',
+        public_id: (req, file) => file.name
     }
-  });
+});
+
+const cloudUpload = multer({ storage: cloudStorage });
+
+revPost.post('/revPosts/cloudUpload', cloudUpload.single('img'), async (req, res) => {
+    try {
+        res.status(200).json({ img: req.file.path });
+    } catch (error) {
+        console.error('File upload failed', error);
+        res.status(500).send({
+            statusCode: 500,
+            message: 'File upload failed',
+        });
+    }
+});
+
 /// GET request to fetch all review posts
 revPost.get('/revPosts', async (req, res) => {
     const { page = 1, pageSize = 5 } = req.query;
@@ -250,7 +248,6 @@ revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res
         const newRev = new RevPostModel({
             title: req.body.title,
             img1: req.body.img1,
-            img2: req.body.img2,
             description: req.body.description,
             likes: 0,
             views: 0,
