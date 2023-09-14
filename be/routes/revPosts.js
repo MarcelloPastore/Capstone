@@ -29,9 +29,9 @@ const cloudStorage = new CloudinaryStorage({
 
 const cloudUpload = multer({ storage: cloudStorage });
 
-revPost.post('/revPosts/cloudUpload', cloudUpload.single('img'), async (req, res) => {
+revPost.post('/revPosts/cloudUpload', cloudUpload.single('img1'), async (req, res) => {
     try {
-        res.status(200).json({ img: req.file.path });
+        res.status(200).json({ img1: req.file.path });
     } catch (error) {
         console.error('File upload failed', error);
         res.status(500).send({
@@ -244,7 +244,7 @@ revPost.post('/revPost/:revID/comments', async (req, res) => {
 //! POST request to create a new review post
 revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res) => {
     try {
-         // Create a new review post object with data from the request body
+        // Create a new review post object with data from the request body
         const newRev = new RevPostModel({
             title: req.body.title,
             img1: req.body.img1,
@@ -253,8 +253,10 @@ revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res
             views: 0,
             user: req.body.user
         });
+
         // Save the new review post to the database
         const review = await newRev.save();
+        console.log('Review saved:', review);
 
         // Return a 201 response with the created review post data
         res.status(201).send({
@@ -262,6 +264,7 @@ revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res
             payload: review
         });
     } catch (error) {
+        console.error('Error creating review:', error);
         // Handle internal server error
         res.status(500).send({
             statusCode: 500,

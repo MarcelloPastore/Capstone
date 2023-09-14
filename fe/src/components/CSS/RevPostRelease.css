@@ -1,0 +1,42 @@
+/* RevPostsRelease.css */
+
+/* Style for the container */
+.container {
+    padding-top: 20px;
+  }
+  
+  /* Style for each card */
+  .single-card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style for the card image */
+  .card-img-top {
+    max-height: 200px; /* Set the maximum height for the image */
+    object-fit: cover; /* Scale the image to cover the entire container */
+  }
+  
+  /* Style for the card title */
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  /* Style for the card description */
+  .card-description {
+    max-height: 3.6rem; /* Limit the description to 3 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Style for card text */
+  .card-text {
+    font-size: 0.9rem;
+  }
+  
+  /* Style for the "Ciao!" button */
+  .card-button {
+    margin-top: 10px;
+  }
+  
