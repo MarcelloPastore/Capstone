@@ -1,0 +1,7 @@
+POST HTTP://localhost:6969/sendEmail HTTP/1.1
+Content-Type: application/json
+
+{
+    "subject": "oggetto mail",
+    "text": "testo della mail"
+}

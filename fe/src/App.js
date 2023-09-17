@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 // routes
 import Home from './pages/Home'; 
 import { getPosts, selectAllPosts, selectIsPostLoading } from './states/revPostStates';
+import Login from './pages/Login';
+import ProtectedRoutes from './middleware/ProtectedRoutes';
+import Account from './pages/Account';
 
 
 //main
@@ -27,6 +30,11 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path='/' element={<Home />} />
+        <Route path='/login' element={<Login />}/>
+
+        <Route element={<ProtectedRoutes />}> 
+          <Route path='/account' element={<Account />} />
+        </Route>
       </Routes>
     </Router>
   );

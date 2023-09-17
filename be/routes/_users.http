@@ -11,12 +11,12 @@ POST http://localhost:6969/user/create HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Marcello",
-    "surname": "Pastore",
+    "name": "Marcello ",
+    "surname": "Pastore ",
     "age": 21,
     "email": "marcellopastore4@gmail.com",
-    "nickname": "Mistiko009",
-    "password": "Belloguaglione69"
+    "nickname": "ZOP Mistiko",
+    "password": "mko009"
 }
 
 #####
@@ -33,4 +33,4 @@ Content-Type: application/json
 }
 
 #####
-DELETE http://localhost:6969/user/64f840b0aefe226275bea11d
+DELETE http://localhost:6969/user/650568f551a54806dc542c8c

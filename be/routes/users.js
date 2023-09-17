@@ -3,6 +3,7 @@ const express = require('express');
 const userModel = require('../models/userModel'); 
 const user = express.Router();
 const { validateUserBody, userBodyParams } = require('../middlewares/userValidator.js'); // Import middleware functions
+const bcrypt = require('bcrypt');
 
 //! GET request to fetch all users
 user.get('/users', async (req, res) => {
@@ -96,13 +97,17 @@ user.get('/user/byNickname', async (req, res) => {
 //! POST request to create a new user
 user.post('/user/create', userBodyParams, validateUserBody, async (req, res) => {
     // Create a new user object with data from the request body
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
     const newUser = new userModel({
         name: req.body.name,
         surname: req.body.surname,
         age: req.body.age,
         email: req.body.email,
         nickname: req.body.nickname,
-        password: req.body.password
+        password: hashedPassword
     });
 
     try {

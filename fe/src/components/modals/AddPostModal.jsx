@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+
 const AddPostModal = () => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -10,6 +11,9 @@ const AddPostModal = () => {
     user: '',
     description: '',
   });
+
+  const token = localStorage.getItem('userLoggedIn');
+  console.log('token: '+ token);
 
   const [uploadedImg, setUploadedImg] = useState(''); // State to store the uploaded image path
 
@@ -29,6 +33,9 @@ const AddPostModal = () => {
   
       const uploadResponse = await fetch('http://localhost:6969/revPosts/cloudUpload', {
         method: 'POST',
+        headers:{
+          'Authorization': 'Bearer ' + token
+        },
         body: fileData,
       });
   
@@ -47,6 +54,7 @@ const AddPostModal = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
           },
           body: JSON.stringify(postFormData),
         });

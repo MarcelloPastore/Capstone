@@ -19,7 +19,7 @@ const userBodyParams = [
     body('email')
         .notEmpty()
         .isString()
-        .withMessage('Email is required'),
+        .withMessage('Email is required and must be unique'),
 
     body('password')
         .notEmpty()

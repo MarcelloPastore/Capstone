@@ -10,6 +10,8 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const crypto = require('crypto');
 const revPost = express.Router(); // Create an Express Router for review posts
+const verifyToken = require('../middlewares/verifyToken.js');
+
 
 // cloudinary storage
 cloudinary.config({ 
@@ -29,7 +31,7 @@ const cloudStorage = new CloudinaryStorage({
 
 const cloudUpload = multer({ storage: cloudStorage });
 
-revPost.post('/revPosts/cloudUpload', cloudUpload.single('img1'), async (req, res) => {
+revPost.post('/revPosts/cloudUpload', verifyToken, cloudUpload.single('img1'), async (req, res) => {
     try {
         res.status(200).json({ img1: req.file.path });
     } catch (error) {
@@ -187,7 +189,7 @@ revPost.get('/revPost/:revID', async (req, res) => {
 });
 
 //! POST request to add a new comment to a review post
-revPost.post('/revPost/:revID/comments', async (req, res) => {
+revPost.post('/revPost/:revID/comments', verifyToken, async (req, res) => {
     const { revID } = req.params;
 
     try {
@@ -242,7 +244,7 @@ revPost.post('/revPost/:revID/comments', async (req, res) => {
 });
 
 //! POST request to create a new review post
-revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res) => {
+revPost.post('/revPosts/create', verifyToken, revBodyParams, validateRevBody, async (req, res) => {
     try {
         // Create a new review post object with data from the request body
         const newRev = new RevPostModel({
@@ -275,7 +277,7 @@ revPost.post('/revPosts/create', revBodyParams, validateRevBody, async (req, res
 });
 
 //! PATCH request to update an existing review post
-revPost.patch('/revPost/:id', async (req, res) => {
+revPost.patch('/revPost/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
 
     // Check if the review post exists by ID
@@ -314,7 +316,7 @@ revPost.patch('/revPost/:id', async (req, res) => {
 });
 
 //! DELETE request to delete a review post by ID
-revPost.delete('/revPost/:id', async (req, res) => {
+revPost.delete('/revPost/:id', verifyToken, async (req, res) => {
     const { id } = req.params;
 
     // Check if the review post exists by ID

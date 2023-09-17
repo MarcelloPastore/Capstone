@@ -1,11 +1,12 @@
 POST http://localhost:6969/revPosts/create HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFyY2VsbG8gIiwic3VybmFtZSI6IlBhc3RvcmUgIiwiZW1haWwiOiJtYXJjZWxsb3Bhc3RvcmU0QGdtYWlsLmNvbSIsImFnZSI6MjEsIm5pY2tuYW1lIjoiWk9QIE1pc3Rpa28iLCJpYXQiOjE2OTQ5NzIxNDcsImV4cCI6MTY5NTA1ODU0N30.1W9S3xNRjB-04iuzeNXjsyqauECn-9aTpGGPQEszFE0
 
 {
-    "title": "titolo 1",
-    "img1": "IMMAGINE",
+    "title": "titolo 2",
+    "img1": "IMMAGINE 2",
     "description": "description of 15+ characters",
-    "user": "65002ae3def869665c07e82a"
+    "user": "6507237cd4385a7b50cc22ef"
 }
 
 ########

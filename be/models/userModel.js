@@ -16,10 +16,15 @@ const UserModelSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    profilePicture: {
+        type: String,
+        required: false,
+    },
     // emailAddress
     email:{
         type: String,
         required: true,
+        unique: true,
     },
     // nickname
     nickname: {
@@ -30,6 +35,11 @@ const UserModelSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    role: {
+        type: String,
+        enum:['admin', 'staff', 'member', 'guest'],
+        default: 'member'
     },
     // comments given
     comments: [{
