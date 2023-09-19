@@ -9,7 +9,7 @@ import { getPosts, selectAllPosts, selectIsPostLoading } from './states/revPostS
 import Login from './pages/Login';
 import ProtectedRoutes from './middleware/ProtectedRoutes';
 import Account from './pages/Account';
-
+import Success from './pages/Success';
 
 //main
 const App = () => {
@@ -34,6 +34,7 @@ const App = () => {
 
         <Route element={<ProtectedRoutes />}> 
           <Route path='/account' element={<Account />} />
+          <Route path='/success' element={<Success />} />
         </Route>
       </Routes>
     </Router>

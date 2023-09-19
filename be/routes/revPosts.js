@@ -31,7 +31,7 @@ const cloudStorage = new CloudinaryStorage({
 
 const cloudUpload = multer({ storage: cloudStorage });
 
-revPost.post('/revPosts/cloudUpload', verifyToken, cloudUpload.single('img1'), async (req, res) => {
+revPost.post('/revPosts/cloudUpload', cloudUpload.single('img1'), verifyToken, async (req, res) => {
     try {
         res.status(200).json({ img1: req.file.path });
     } catch (error) {
@@ -43,7 +43,7 @@ revPost.post('/revPosts/cloudUpload', verifyToken, cloudUpload.single('img1'), a
     }
 });
 
-/// GET request to fetch all review posts
+//! GET request to fetch all review posts
 revPost.get('/revPosts', async (req, res) => {
     const { page = 1, pageSize = 5 } = req.query;
 
@@ -189,7 +189,7 @@ revPost.get('/revPost/:revID', async (req, res) => {
 });
 
 //! POST request to add a new comment to a review post
-revPost.post('/revPost/:revID/comments', verifyToken, async (req, res) => {
+revPost.post('/revPost/:revID/comments', async (req, res) => {
     const { revID } = req.params;
 
     try {
@@ -245,6 +245,7 @@ revPost.post('/revPost/:revID/comments', verifyToken, async (req, res) => {
 
 //! POST request to create a new review post
 revPost.post('/revPosts/create', verifyToken, revBodyParams, validateRevBody, async (req, res) => {
+    console.log(req.get('Authorization'))
     try {
         // Create a new review post object with data from the request body
         const newRev = new RevPostModel({

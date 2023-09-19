@@ -17,6 +17,10 @@ const Login = () => {
         })
         .then(res => navigate('/account'));
     };
+
+    const handleLoginWithGithub = () => {
+        window.location.href = 'http://localhost:6969/auth/github';
+    }
     
     return (
         <div className='flex flex-col justify-center items-center'>
@@ -39,6 +43,10 @@ const Login = () => {
                 />
                 <Button type='submit'> Login </Button>
             </form>
+            <Button
+             type='submit'
+             onClick={handleLoginWithGithub}
+            > Login con GitHub </Button>
         </div>
         
       );

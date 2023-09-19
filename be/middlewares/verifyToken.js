@@ -11,7 +11,6 @@ module.exports = function (req, res, next) {
         });
     }
 
-    // The Authorization header typically contains a token in the format "Bearer <token>"
     // You need to extract the token part.
     const token = authHeader.split(' ')[1];
 
