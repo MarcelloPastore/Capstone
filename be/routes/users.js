@@ -1,204 +1,217 @@
 // Import required modules and dependencies
 const express = require('express');
-const userModel = require('../models/userModel'); 
+const userModel = require('../models/userModel');
 const user = express.Router();
-const { validateUserBody, userBodyParams } = require('../middlewares/userValidator.js'); // Import middleware functions
+const { validateUserBody, userBodyParams } = require('../middlewares/userValidator.js');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-//! GET request to fetch all users
+// Configure Cloudinary for cloud storage
+cloudinary.config({
+  cloud_name: 'do1eu7dnn',
+  api_key: '228316619334122',
+  api_secret: 'S81GXJv4Rrq8KIvNa9MjAv2pkvc'
+});
+
+// Create a Cloudinary storage object for file uploads
+const cloudStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'GamersBlog', // Specify the folder in Cloudinary
+    format: async (req, file) => 'png', // Specify the file format
+    public_id: (req, file) => file.name // Specify the public ID
+  }
+});
+
+// Create a multer middleware for handling file uploads to Cloudinary
+const cloudUpload = multer({ storage: cloudStorage });
+
+// Define a route to handle profile picture uploads to Cloudinary
+user.post('/user/cloudUpload', cloudUpload.single('profilePicture'), async (req, res) => {
+  try {
+    if (!req.file) {
+      throw new Error('No file uploaded.'); // Check if a file was uploaded
+    }
+    res.status(200).json({ profilePicture: req.file.path }); // Respond with the file path
+  } catch (error) {
+    console.error('File upload failed', error);
+    res.status(500).send({
+      statusCode: 500,
+      message: 'File upload failed',
+    });
+  }
+});
+
+// Define a route to fetch all users
 user.get('/users', async (req, res) => {
-    try {
-        // Fetch all users from the database
-        const users = await userModel.find();
-
-        // If there are no users, return a 404 error
-        if (!users || users.length === 0) {
-            return res.status(404).send({
-                statusCode: 404,
-                message: 'No user found in db'
-            })
-        }
-
-        // Return a 200 response with the list of users
-        res.status(200).send({
-            statusCode: 200,
-            payload: users
-        });
-    } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            error: "Internal server error"
-        });
+  try {
+    const users = await userModel.find(); // Retrieve all users from the database
+    if (!users || users.length === 0) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: 'No user found in db'
+      });
     }
+    res.status(200).send({
+      statusCode: 200,
+      payload: users
+    });
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).send({
+      statusCode: 500,
+      error: 'Internal server error'
+    });
+  }
 });
 
-//! GET request to fetch a single user by ID
+// Define a route to fetch a single user by ID
 user.get('/users/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        // Find a user by their ID in the database
-        const userExist = await userModel.findById(id);
-
-        // If the user doesn't exist, return a 404 error
-        if (!userExist) {
-            return res.status(404).send({
-                statusCode: 404,
-                message: 'User not found'
-            });
-        }
-
-        // Return a 200 response with the user data
-        res.status(200).send({
-            statusCode: 200,
-            message: 'User found successfully',
-            user: userExist
-        });
-    } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            error: "Internal server error"
-        });
+  const { id } = req.params;
+  try {
+    const userExist = await userModel.findById(id); // Find a user by ID
+    if (!userExist) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: 'User not found'
+      });
     }
+    res.status(200).send({
+      statusCode: 200,
+      message: 'User found successfully',
+      user: userExist
+    });
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).send({
+      statusCode: 500,
+      error: 'Internal server error'
+    });
+  }
 });
 
-//! GET request to fetch users by nickname
+// Define a route to fetch users by nickname
 user.get('/user/byNickname', async (req, res) => {
-    const { userNickname } = req.query;
-
-    try {
-        // Find users by nickname in the database
-        const userByName = await userModel.find({ nickname: userNickname })
-
-        // If no users are found, return a 404 error
-        if (!userByName) {
-            return res.status(404).send({
-                statusCode: 404,
-                message: 'User not found'
-            });
-        }
-
-        // Return a 200 response with the matching users
-        res.status(200).send({
-            statusCode: 200,
-            payload: userByName
-        });
-    } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            error: "Internal server error"
-        });
+  const { userNickname } = req.query;
+  try {
+    const userByName = await userModel.find({ nickname: userNickname }); // Find users by nickname
+    if (!userByName || userByName.length === 0) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: 'User not found'
+      });
     }
+    res.status(200).send({
+      statusCode: 200,
+      payload: userByName
+    });
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).send({
+      statusCode: 500,
+      error: 'Internal server error'
+    });
+  }
 });
 
-//! POST request to create a new user
+// POST request to create a new user
 user.post('/user/create', userBodyParams, validateUserBody, async (req, res) => {
-    // Create a new user object with data from the request body
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
-
-    const newUser = new userModel({
+    try {
+      const saltRounds = 10; // Specify the number of salt rounds for bcrypt
+  
+      // Check if the request body contains a valid password field
+      if (!req.body.password) {
+        return res.status(400).send({
+          statusCode: 400,
+          error: 'Password is required'
+        });
+      }
+  
+      // Hash the user's password
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+  
+      // Create a new user object with the hashed password
+      const newUser = new userModel({
         name: req.body.name,
         surname: req.body.surname,
         age: req.body.age,
         email: req.body.email,
         nickname: req.body.nickname,
         password: hashedPassword
-    });
-
-    try {
-        // Save the new user to the database
-        const user = await newUser.save();
-
-        // Return a 201 response with the created user data
-        res.status(201).send({
-            statusCode: 201,
-            payload: user
-        });
+      });
+  
+      // Save the new user to the database
+      const user = await newUser.save();
+  
+      // Return a 201 response with the created user data
+      res.status(201).send({
+        statusCode: 201,
+        payload: user
+      });
     } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            error: "Internal server error"
-        });
+      console.error('Internal server error:', error);
+      res.status(500).send({
+        statusCode: 500,
+        error: 'Internal server error'
+      });
     }
-});
+  });
 
-//! PATCH request to update an existing user
+// Define a route to update an existing user by ID
 user.patch('/user/:id', async (req, res) => {
-    const { id } = req.params;
-
-    // Check if the user exists by ID
-    const userExist = await userModel.findById(id);
-
-    // If the user doesn't exist, return a 404 error
-    if (!userExist) {
-        return res.status(404).send({
-            statusCode: 404,
-            message: 'User not found'
-        });
-    }
-
-    try {
-        // Get data to update from the request body
-        const dataToUpdate = req.body;
-        const options = { new: true };
-
-        // Update the user in the database
-        const result = await userModel.findByIdAndUpdate(id, dataToUpdate, options);
-
-        // Return a 200 response with the updated user data
-        res.status(200).send({
-            statusCode: 200,
-            message: `Review with id ${id} updated successfully`,
-            review: result
-        });
-    } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            message: 'Internal server error',
-            error: error.message
-        });
-    }
+  const { id } = req.params;
+  const userExist = await userModel.findById(id); // Check if the user exists by ID
+  if (!userExist) {
+    return res.status(404).send({
+      statusCode: 404,
+      message: 'User not found'
+    });
+  }
+  try {
+    const dataToUpdate = req.body;
+    const options = { new: true };
+    const result = await userModel.findByIdAndUpdate(id, dataToUpdate, options); // Update the user in the database
+    res.status(200).send({
+      statusCode: 200,
+      message: `Review with id ${id} updated successfully`,
+      review: result
+    });
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).send({
+      statusCode: 500,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
 });
 
-//! DELETE request to delete a user by ID
+// Define a route to delete a user by ID
 user.delete('/user/:userId', async (req, res) => {
-    const { userId } = req.params;
-
-    // Check if the user exists by ID
-    const userExist = await userModel.findById(userId);
-
-    // If the user doesn't exist, return a 404 error
-    if (!userExist) {
-        return res.status(404).send({
-            statusCode: 404,
-            message: 'User not found'
-        });
-    }
-
-    try {
-        // Delete the user from the database
-        const userToDelete = await userModel.findByIdAndDelete(userId);
-
-        // Return a 200 response
-        res.status(200).send({
-            statusCode: 200,
-            message: 'User deleted successfully'
-        });
-    } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            message: 'Internal server error',
-            error: error.message
-        });
-    }
+  const { userId } = req.params;
+  const userExist = await userModel.findById(userId); // Check if the user exists by ID
+  if (!userExist) {
+    return res.status(404).send({
+      statusCode: 404,
+      message: 'User not found'
+    });
+  }
+  try {
+    const userToDelete = await userModel.findByIdAndDelete(userId); // Delete the user from the database
+    res.status(200).send({
+      statusCode: 200,
+      message: 'User deleted successfully'
+    });
+  } catch (error) {
+    console.error('Internal server error:', error);
+    res.status(500).send({
+      statusCode: 500,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
 });
 
 // Export the user router for use in your application

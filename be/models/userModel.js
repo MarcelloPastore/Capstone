@@ -45,7 +45,11 @@ const UserModelSchema = new mongoose.Schema({
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
-    }]
+    }],
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ReviewPost'
+    }],
 });
 
 module.exports = mongoose.model('User', UserModelSchema, 'Users');

@@ -9,7 +9,7 @@ const Login = () => {
 
     const onSubmit = async(e) => {
         e.preventDefault();
-
+        
         await axios
         .post('http://localhost:6969/login', loginFormData)
         .then((res) => {
