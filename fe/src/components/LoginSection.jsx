@@ -1,55 +1,92 @@
-import  axios  from 'axios';
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
+import { Button, Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './SignInSession';
+import SignInSession from './SignInSession';
 
 const Login = () => {
-    const [loginFormData, setLoginFormData] = useState({})
+    const [loginFormData, setLoginFormData] = useState({});
     const navigate = useNavigate();
+    const userLoggedIn = localStorage.getItem('userLoggedIn');
 
-    const onSubmit = async(e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        
-        await axios
-        .post('http://localhost:6969/login', loginFormData)
-        .then((res) => {
-            localStorage.setItem('userLoggedIn', JSON.stringify(res.data.token));
-        })
-        .then(res => navigate('/account'));
+
+        try {
+            const response = await axios.post('http://localhost:6969/login', loginFormData);
+            localStorage.setItem('userLoggedIn', JSON.stringify(response.data.token));
+            navigate('/account');
+        } catch (error) {
+            console.error('Login failed', error);
+            // Handle login error here
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('userLoggedIn');
+        navigate('/');
     };
 
     const handleLoginWithGithub = () => {
         window.location.href = 'http://localhost:6969/auth/github';
-    }
-    
-    return (
-        <div className='flex flex-col justify-center items-center'>
-            <form onSubmit={onSubmit} className='flex flex-column justify-center items-center gap-3'>
-                <input 
-                    className='p-2 bg-zinc-100 text-black rounded'
-                    type="email" name='email' 
-                    onChange={(e) => setLoginFormData({
-                    ...loginFormData, 
-                    email: e.target.value
-                    })} 
-                />
-                <input 
-                    className='p-2 bg-zinc-100 text-black rounded'
-                    type="password" name='password' 
-                    onChange={(e) => setLoginFormData({
-                    ...loginFormData, 
-                    password: e.target.value
-                    })}
-                />
-                <Button type='submit'> Login </Button>
-            </form>
-            <Button
-             type='submit'
-             onClick={handleLoginWithGithub}
-            > Login con GitHub </Button>
-        </div>
-        
-      );
-}
+    };
 
-export default Login
+    return (
+        <>
+            <Container className="d-flex flex-column align-items-center">
+                <h2>Login</h2>
+                <Form onSubmit={handleLogin} className="w-50">
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Control
+                            type="email"
+                            placeholder="Email"
+                            onChange={(e) => setLoginFormData({ ...loginFormData, email: e.target.value })}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e) => setLoginFormData({ ...loginFormData, password: e.target.value })}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        Login
+                    </Button>
+                </Form>
+
+                {userLoggedIn ? (
+                    <Button
+                        variant="danger"
+                        className="mt-3"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </Button>
+                ) : (
+                    <div className=' centration '>
+                       <Button
+                        variant="secondary"
+                        className="mt-3"
+                        onClick={handleLoginWithGithub}
+                    >
+                        Login with GitHub
+                    </Button> 
+                    <SignInSession />
+                    </div>
+                )}
+            </Container>
+            
+        </>
+
+    );
+};
+
+export default Login;
+
+

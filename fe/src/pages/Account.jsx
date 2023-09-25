@@ -6,8 +6,11 @@ const Account = () => {
   return (
     <>
       <NavigationBar />
-      <div>Account session</div>
       <AddPostModal />
+      <div>
+        
+      </div>
+
     </>
   )
 }

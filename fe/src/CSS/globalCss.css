@@ -11,3 +11,13 @@
     -webkit-box-orient: vertical;
   }
   
+.navbar-color {
+  background-color: #708a99; 
+  color: #011526;
+}
+
+.centration {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
