@@ -23,10 +23,8 @@ export const useSession = () => {
     return decodedSession;
 };
 
-const ProtectedRoutes = () => {
+export const ProtectedRoutes = () => {
     const isAuthorized = auth();
-    const session = useSession();
-    console.log(session)
     return isAuthorized ? <Outlet /> : <Login />;
 };
 

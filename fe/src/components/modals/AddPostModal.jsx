@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useSession } from '../../middleware/ProtectedRoutes';
 
 
 const AddPostModal = () => {
@@ -13,8 +14,7 @@ const AddPostModal = () => {
   });
 
   const token = JSON.parse(localStorage.getItem('userLoggedIn'));
-  console.log('token: '+ token);
-
+  const session = useSession();
 
   const [uploadedImg, setUploadedImg] = useState(''); // State to store the uploaded image path
 
@@ -47,7 +47,7 @@ const AddPostModal = () => {
         const postFormData = {
           title: formData.title,
           img1: imagePath,
-          user: formData.user,
+          user: session.id,
           description: formData.description,
         };
         console.log(postFormData);
@@ -98,12 +98,6 @@ const AddPostModal = () => {
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             />
             <input type="file" name="img1" onChange={handleFileChange} />
-            <input
-              type="text"
-              name="user"
-              placeholder="Username"
-              onChange={(e) => setFormData({ ...formData, user: e.target.value })}
-            />
             <textarea
               name="description"
               cols="30"

@@ -33,6 +33,7 @@ loginRouter.post('/login', async (req, res) => {
                 age: user.age,
                 profilePicture: user.profilePicture,
                 nickname: user.nickname,
+                id: user.id,
             },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }

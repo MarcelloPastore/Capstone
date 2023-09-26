@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
 
+
 const SignInSession = () => {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ const SignInSession = () => {
         email: '',
         password: '',
         nickname: '',
-      });
+    });
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -23,6 +24,7 @@ const SignInSession = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const fileData = new FormData();
             fileData.append('profilePicture', formData.profilePicture);
@@ -52,13 +54,14 @@ const SignInSession = () => {
                     },
                     body: JSON.stringify(userFormData),
                 });
+
                 if (createResponse.ok) {
                     handleClose();
                 } else {
                     console.error('Failed to create user: ' + createResponse.status, createResponse.statusText);
                 }
             } else {
-                console.error('Error occurred: ', uploadResponse.statusText, uploadResponse.statusText );
+                console.error('Error occurred: ', uploadResponse.statusText, uploadResponse.statusText);
             }
         } catch (error) {
             console.error('Error occurred: ', error);
@@ -66,69 +69,69 @@ const SignInSession = () => {
     };
 
 
-  return (
-    <>
-        <Button variant='primary' onClick={handleShow}>
-            Sign In
-        </Button>
+    return (
+        <>
+            <Button variant='primary' onClick={handleShow}>
+                Sign In
+            </Button>
 
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title> Create a new user </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <form onSubmit={handleSubmit} encType='multipart/form-data'>
-                    <input 
-                    type="text"
-                    name='name' 
-                    placeholder='Name'
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value})} 
-                    />
-                    <input 
-                    type="text"
-                    name='surname' 
-                    placeholder='Surname'
-                    onChange={(e) => setFormData({ ...formData, surname: e.target.value})} 
-                    />
-                    <input 
-                    type="file"
-                    name='profilePicture' 
-                    onChange={handleFileChange} 
-                    />
-                    <input 
-                    type="text"
-                    name='email' 
-                    placeholder='Email Address'
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value})} 
-                    /><input 
-                    type="number"
-                    name='Age' 
-                    placeholder='Set your age'
-                    onChange={(e) => setFormData({ ...formData, age: e.target.value})} 
-                    />
-                    <input 
-                    type="password"
-                    name='password' 
-                    placeholder='Set password'
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value})} 
-                    />
-                    <input 
-                    type="text"
-                    name='nickname' 
-                    placeholder='Nickname'
-                    onChange={(e) => setFormData({ ...formData, nickname: e.target.value})} 
-                    />
-                    <button type='submit'>Submit</button>
-                </form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant='secondary' onClick={handleClose}>
-                    Close
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    </>
-  )
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title> Create a new user </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                        <input
+                            type="text"
+                            name='name'
+                            placeholder='Name'
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        />
+                        <input
+                            type="text"
+                            name='surname'
+                            placeholder='Surname'
+                            onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
+                        />
+                        <input
+                            type="file"
+                            name='profilePicture'
+                            onChange={handleFileChange}
+                        />
+                        <input
+                            type="text"
+                            name='email'
+                            placeholder='Email Address'
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        /><input
+                            type="number"
+                            name='Age'
+                            placeholder='Set your age'
+                            onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                        />
+                        <input
+                            type="password"
+                            name='password'
+                            placeholder='Set password'
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        />
+                        <input
+                            type="text"
+                            name='nickname'
+                            placeholder='Nickname'
+                            onChange={(e) => setFormData({ ...formData, nickname: e.target.value })}
+                        />
+                        <button type='submit'  >Submit</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant='secondary' onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    )
 }
 
 export default SignInSession

@@ -8,10 +8,9 @@ import {combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import revPostStates from './states/revPostStates';
 
-
 const reducer = combineReducers({
   // reducers
-  postState: revPostStates
+  postState: revPostStates,
 });
 
 const store = configureStore({

@@ -6,7 +6,7 @@ import SingleCard from './SingleCard';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from '../states/revPostStates';
 
-import './CSS/RevPostRelease.css'; // Import the CSS file
+import '../CSS/RevPostRelease.css'; // Import the CSS file
 
 const RevPostsRelease = () => {
   const posts = useSelector(selectAllPosts);
@@ -14,7 +14,7 @@ const RevPostsRelease = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className="justify-content-center">
         {Array.isArray(posts.reviewPosts) &&
           posts.reviewPosts.map((post) => {
             return (

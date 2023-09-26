@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import '../CSS/globalCss.css'
+import '../CSS/globalCss.css';
 
 const SingleCard = ({ img, _id, title, description, likes, views, user }) => {
   return (
