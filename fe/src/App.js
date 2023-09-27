@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // routes
 import Home from './pages/Home'; 
-import { getPosts, selectAllPosts, selectIsPostLoading } from './states/revPostStates';
+import { getPosts } from './states/revPostStates';
 import Login from './pages/Login';
 import ProtectedRoutes from './middleware/ProtectedRoutes';
 import Account from './pages/Account';
 import Success from './pages/Success';
+import Review from './pages/Review';
 
 //main
 const App = () => {
 
   const dispatch = useDispatch();
-
-  const myPosts = useSelector(selectAllPosts);
-  const myPostsLoadingState = useSelector(selectIsPostLoading);
-
-  console.log('redux', myPosts, myPostsLoadingState);
 
   useEffect(() => {
     dispatch(getPosts())
@@ -30,6 +26,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path='/' element={<Home />} />
+        <Route path='/review' element={<Review />}/>
         <Route path='/login' element={<Login />}/>
 
         <Route element={<ProtectedRoutes />}> 

@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SingleCard from './SingleCard';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from '../states/revPostStates';
-
+import SearchBar from './SearchBar';
 import '../CSS/RevPostRelease.css'; // Import the CSS file
 
 const RevPostsRelease = () => {
-  const posts = useSelector(selectAllPosts);
-  console.log('Redux posts:', posts);
+  const [posts, setPosts] = useState([])
+  const allPosts = useSelector(selectAllPosts)
+  const handler = () =>{
+    setPosts(allPosts);
+  }
 
+  useEffect(() => {
+    handler()
+  })
+  
+  
   return (
+    <>
+    <SearchBar posts={posts} setPosts={setPosts} handler={handler}/>
     <Container>
       <Row className="justify-content-center">
         {Array.isArray(posts.reviewPosts) &&
@@ -32,6 +42,8 @@ const RevPostsRelease = () => {
           })}
       </Row>
     </Container>
+    </>
+    
   );
 };
 

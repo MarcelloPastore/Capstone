@@ -159,24 +159,32 @@ user.post('/user/create', userBodyParams, validateUserBody, async (req, res) => 
     }
   });
 
-// Define a route to update an existing user by ID
+// Define a route to update an existing user by ID and populate comments and posts
 user.patch('/user/:id', async (req, res) => {
   const { id } = req.params;
-  const userExist = await userModel.findById(id); // Check if the user exists by ID
-  if (!userExist) {
-    return res.status(404).send({
-      statusCode: 404,
-      message: 'User not found'
-    });
-  }
   try {
+    // Use `.populate()` to fetch the user and populate comments and posts
+    const userExist = await userModel.findById(id)
+      .populate('comments') // Populate the 'comments' field
+      .populate('posts'); // Populate the 'posts' field
+
+    if (!userExist) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: 'User not found'
+      });
+    }
+
+    // Update the user's data with the new data from the request body
     const dataToUpdate = req.body;
     const options = { new: true };
-    const result = await userModel.findByIdAndUpdate(id, dataToUpdate, options); // Update the user in the database
+    const result = await userModel.findByIdAndUpdate(id, dataToUpdate, options);
+
+    // Respond with the updated user, which now contains populated comments and posts
     res.status(200).send({
       statusCode: 200,
-      message: `Review with id ${id} updated successfully`,
-      review: result
+      message: `User with id ${id} updated successfully`,
+      user: result
     });
   } catch (error) {
     console.error('Internal server error:', error);
@@ -187,6 +195,7 @@ user.patch('/user/:id', async (req, res) => {
     });
   }
 });
+
 
 // Define a route to delete a user by ID
 user.delete('/user/:userId', async (req, res) => {

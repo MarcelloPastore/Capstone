@@ -19,7 +19,7 @@ GET http://localhost:6969/revPosts?page=2
 GET http://localhost:6969/revPosts/title?postTitle=titolo
 
 #####
-GET http://localhost:6969/revPosts/byNickname?userNickname=Mistiko009
+GET http://localhost:6969/revPosts/byUserId?userId=6513e6faefb3185ad9589af7
 
 #####
 PATCH http://localhost:6969/revPost/64f216a313294dcda14f763d

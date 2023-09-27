@@ -87,36 +87,36 @@ revPost.get('/revPosts', async (req, res) => {
     }
 });
 
-
-//! GET request to fetch user's posts by nickname
-revPost.get('/revPosts/byNickname', async (req, res) => {
-    const { userNickname} = req.query;
-
+revPost.get('/revPosts/byUserId', async (req, res) => {
+    const { userId } = req.query; // Assuming you pass the user's ID as a query parameter
+  
     try {
-        // Find users posts by nickname in the database
-        const postByNickname = await RevPostModel.find({ author: { nickname: userNickname } })
-
-        // If no users posts are found, return a 404 error
-        if (!postByNickname) {
-            return res.status(404).send({
-                statusCode: 404,
-                message: 'Post not found'
-            });
-        }
-
-        // Return a 200 response with the matching users
-        res.status(200).send({
-            statusCode: 200,
-            payload: postByNickname
+      // Find posts by user's ID in the database
+      const postsByUserId = await RevPostModel.find({ 'user': userId });
+  
+      // If no posts are found, return a 404 error
+      if (!postsByUserId || postsByUserId.length === 0) {
+        return res.status(404).send({
+          statusCode: 404,
+          message: 'No posts found for the user with ID: ' + userId
         });
+      }
+  
+      // Return a 200 response with the matching posts
+      res.status(200).send({
+        statusCode: 200,
+        payload: postsByUserId
+      });
     } catch (error) {
-        // Handle internal server error
-        res.status(500).send({
-            statusCode: 500,
-            error: "Internal server error"
-        });
+      // Handle internal server error
+      res.status(500).send({
+        statusCode: 500,
+        error: 'Internal server error'
+      });
     }
-});
+  });
+  
+  
 
 //! GET request to fetch posts by title
 revPost.get('/revPosts/title', async (req, res) => {
@@ -349,6 +349,42 @@ revPost.delete('/revPost/:id', verifyToken, async (req, res) => {
         });
     }
 });
+
+// POST route to increment views for a specific post
+revPost.patch('/revPosts/incrementViews/:postId', async (req, res) => {
+    const { postId } = req.params;
+  
+    try {
+      // Find the post by ID and increment its view count
+      const post = await RevPostModel.findByIdAndUpdate(postId, { $inc: { views: 1 } }, { new: true });
+  
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+  
+      res.status(200).json({ message: 'Views incremented successfully', updatedPost: post });
+    } catch (error) {
+      console.error('Internal server error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  revPost.patch('/revPosts/incrementLikes/:postId', async (req, res) => {
+    const { postId } = req.params;
+  
+    try {
+      // Find the post by ID and increment its view count
+      const post = await RevPostModel.findByIdAndUpdate(postId, { $inc: { likes: 1 } }, { new: true });
+  
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+  
+      res.status(200).json({ message: 'Likes incremented successfully', updatedPost: post });
+    } catch (error) {
+      console.error('Internal server error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
 // Export the revPost router for use in your application
 module.exports = revPost;
