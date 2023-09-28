@@ -10,8 +10,6 @@ const AuthorBio = () => {
     const session = useSession();
 
     const handlePost = async () => {
-
-
         try {
             const response = await axios.get('http://localhost:6969/revPosts/byUserId?userId=' + session.id);
 
@@ -27,12 +25,27 @@ const AuthorBio = () => {
         }
     }
 
-    useEffect(() => { handlePost(); });
+    useEffect(() => { handlePost(); }, []);
 
     return (
-        <div>
-            <Container>
-                <h1>Ciao {session.nickname}</h1>
+        <div className='authorBio-section'>
+            <div className='biografia'>
+                <h1>Bentornato {session.nickname}</h1>
+                <div className='user-info'>
+                    <div className='user-img-container'>
+                        <img src="" alt="userImage.png" />
+                    </div>
+                    <div className='user-data-container'>
+                        <p>inserire nome </p>
+                        <p>inserire cognome </p>
+                    </div>
+                    <div>
+                        <p>inserire età</p>
+                        <p>inserire email</p>
+                    </div>
+                </div>
+            </div>
+           
                 <Row className="justify-content-center">
                     {Array.isArray(posts) &&
                         posts.map((post) => {
@@ -51,7 +64,7 @@ const AuthorBio = () => {
                             );
                         })}
                 </Row>
-            </Container>
+            
         </div>
 
     );

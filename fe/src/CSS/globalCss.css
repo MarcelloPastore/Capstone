@@ -3,19 +3,7 @@
   flex-direction: column;
   gap: 15px;
 }
-.description {
-    max-height: 3em; /* Limit to three rows of text */
-    overflow: hidden;
-  }
-  
-  .description-text {
-    overflow: hidden;
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit to three lines */
-    -webkit-box-orient: vertical;
-  }
-  
+
 .navbar-color {
   background-color: #a193bd; 
   color: #011526;
@@ -142,6 +130,7 @@
   margin: 10px;
   padding: 0.5rem 1rem 0.5rem 1rem;
   color: rgb(0, 0, 0);
+  font-weight: bold;
   background-color: #ff0000;
   border-radius: 2rem;
   border: 2px solid #000000;
@@ -220,7 +209,7 @@ margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  flex-wrap: wrap;
 }
 .col-hero > img {
   background-color: lightgray;
@@ -248,3 +237,127 @@ margin: 10px;
   font-style: italic;
 }
 /**end hero session css*/
+
+/**start singleCard session CSS*/
+.singleCard-container {
+  border: 1px solid black;
+  padding: 10px;
+  height: 45vh;
+  margin-bottom: 20px;
+  background-color: #a193bd;
+  border-radius: 2rem;
+  
+}
+.card-div{
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  border-radius: 2rem;
+  height: 100%;
+}
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+.img-container > img {
+  max-width: 100%;
+  height: 20vh;
+  object-fit: scale-down  ;
+  border-radius: 50%;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  font-family: 'Times New Roman', Times, serif;
+}
+.card-body > p  {
+margin-left: 5px;
+margin-right: 5px;
+}
+
+.card-body > h2 {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: bold;
+  font-style: italic;
+
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to three lines */
+  -webkit-box-orient: vertical;
+}
+
+.card-icons {
+  display: flex;
+  justify-content: space-between;
+}
+.card-icons > p {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.card-icons > p > span {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.description {
+  max-height: 3em; /* Limit to three rows of text */
+  overflow: hidden;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.description-text {
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Limit to three lines */
+  -webkit-box-orient: vertical;
+}
+
+/**end singleCard session CSS*/
+
+/**start AuthorBio section CSS*/
+.authorBio-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.biografia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: antiquewhite;
+}
+
+.user-info {
+  display: flex;
+  border: 1px solid blue;
+  margin: 30px;
+  padding: 20px;
+  border-radius: 2rem;
+  background-color: #061940;
+  color: white;
+}
+
+.user-img-container {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-right: 20px;
+
+}
+
+
+
+/**end AuthorBio section CSS*/
