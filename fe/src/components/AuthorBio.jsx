@@ -3,6 +3,7 @@ import { useSession } from '../middleware/ProtectedRoutes';
 import { Row, Col, Container } from 'react-bootstrap';
 import axios from 'axios';
 import SingleCard from './SingleCard';
+import '../CSS/globalCss.css'
 
 const AuthorBio = () => {
     const [posts, setPosts] = useState([]);
@@ -26,30 +27,33 @@ const AuthorBio = () => {
         }
     }
 
-    useEffect(() => {handlePost();});
+    useEffect(() => { handlePost(); });
 
     return (
-        <Container>
-            <h1>Ciao {session.nickname}</h1>
-            <Row className="justify-content-center">
-                {Array.isArray(posts) &&
-                    posts.map((post) => {
-                        return (
-                            <Col xs={12} sm={6} md={4} lg={3} key={post._id}>
-                                <SingleCard
-                                    title={post.title}
-                                    img={post.img1}
-                                    description={post.description}
-                                    user={post.user.nickname} 
-                                    likes={post.likes}
-                                    views={post.views}
-                                />
-                            </Col>
+        <div>
+            <Container>
+                <h1>Ciao {session.nickname}</h1>
+                <Row className="justify-content-center">
+                    {Array.isArray(posts) &&
+                        posts.map((post) => {
+                            return (
+                                <Col xs={12} sm={6} md={4} lg={3} key={post._id}>
+                                    <SingleCard
+                                        title={post.title}
+                                        img={post.img1}
+                                        description={post.description}
+                                        user={post.user.nickname}
+                                        likes={post.likes}
+                                        views={post.views}
+                                    />
+                                </Col>
 
-                        );
-                    })}
-            </Row>
-        </Container>
+                            );
+                        })}
+                </Row>
+            </Container>
+        </div>
+
     );
 }
 

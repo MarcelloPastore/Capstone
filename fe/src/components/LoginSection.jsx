@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignInSession';
 import SignInSession from './SignInSession';
+import '../CSS/globalCss.css';
 
 const Login = () => {
     const [loginFormData, setLoginFormData] = useState({});
@@ -33,8 +34,8 @@ const Login = () => {
     };
 
     return (
-        <>
-            <Container className="d-flex flex-column align-items-center">
+        <div className='login-section'>
+            <Container className="container-login">
                 <h2>Login</h2>
                 <Form onSubmit={handleLogin} className="w-50">
                     <Form.Group controlId="formBasicEmail">
@@ -55,34 +56,31 @@ const Login = () => {
                         />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                        Login
-                    </Button>
+                    <button className='button-login' type="submit">
+                        <span>Login</span>
+                    </button>
                 </Form>
 
                 {userLoggedIn ? (
-                    <Button
-                        variant="danger"
-                        className="mt-3"
+                    <button
+                        className='button-logout'
                         onClick={handleLogout}
                     >
                         Logout
-                    </Button>
+                    </button>
                 ) : (
                     <div className=' centration '>
-                       <Button
-                        variant="secondary"
-                        className="mt-3"
+                       <button className='button-login-git'
                         onClick={handleLoginWithGithub}
                     >
                         Login with GitHub
-                    </Button> 
+                    </button> 
                     <SignInSession />
                     </div>
                 )}
             </Container>
             
-        </>
+        </div>
 
     );
 };

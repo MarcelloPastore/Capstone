@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/esm/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import '../CSS/globalCss.css';
 
 const SignInSession = () => {
     const [show, setShow] = useState(false);
@@ -71,60 +71,66 @@ const SignInSession = () => {
 
     return (
         <>
-            <Button variant='primary' onClick={handleShow}>
+            <button className='button-signIn' onClick={handleShow}>
                 Sign In
-            </Button>
+            </button>
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title> Create a new user </Modal.Title>
+            <Modal  show={show} onHide={handleClose}>
+                <Modal.Header style={{backgroundColor: 'antiquewhite'}} closeButton>
+                    <Modal.Title> Unisciti al gruppo! </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
-                        <input
-                            type="text"
-                            name='name'
-                            placeholder='Name'
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        />
-                        <input
-                            type="text"
-                            name='surname'
-                            placeholder='Surname'
-                            onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
-                        />
-                        <input
-                            type="file"
-                            name='profilePicture'
-                            onChange={handleFileChange}
-                        />
-                        <input
-                            type="text"
-                            name='email'
-                            placeholder='Email Address'
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        /><input
-                            type="number"
-                            name='Age'
-                            placeholder='Set your age'
-                            onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                        />
-                        <input
-                            type="password"
-                            name='password'
-                            placeholder='Set password'
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        />
-                        <input
-                            type="text"
-                            name='nickname'
-                            placeholder='Nickname'
-                            onChange={(e) => setFormData({ ...formData, nickname: e.target.value })}
-                        />
-                        <button type='submit'  >Submit</button>
-                    </form>
+                <Modal.Body style={{backgroundColor: 'antiquewhite'}}>
+                    <div className='signIn-modal-body'>
+                        <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                            <input
+                                type="text"
+                                name='name'
+                                placeholder='Name'
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                name='surname'
+                                placeholder='Surname'
+                                onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
+                            />
+                            <div className='inputFile'>
+                                <span>Scegli la tua foto profilo</span>
+                                <input
+                                type="file"
+                                name='profilePicture'
+                                onChange={handleFileChange}
+                            />
+                            </div>
+                            <input
+                                type="text"
+                                name='email'
+                                placeholder='Email Address'
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            />
+                            <input
+                                type="number"
+                                name='Age'
+                                placeholder='Set your age'
+                                onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                            />
+                            <input
+                                type="password"
+                                name='password'
+                                placeholder='Set password'
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                name='nickname'
+                                placeholder='Nickname'
+                                onChange={(e) => setFormData({ ...formData, nickname: e.target.value })}
+                            />
+                            <button className='submit-signIn' type='submit'  >Submit</button>
+                        </form>
+                    </div>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer style={{backgroundColor: 'antiquewhite'}}>
                     <Button variant='secondary' onClick={handleClose}>
                         Close
                     </Button>

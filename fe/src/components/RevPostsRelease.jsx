@@ -21,7 +21,7 @@ const RevPostsRelease = () => {
   
   
   return (
-    <>
+    <div className='RevPostBody-style'>
     <SearchBar posts={posts} setPosts={setPosts} handler={handler}/>
     <Container>
       <Row className="justify-content-center">
@@ -42,7 +42,7 @@ const RevPostsRelease = () => {
           })}
       </Row>
     </Container>
-    </>
+    </div>
     
   );
 };

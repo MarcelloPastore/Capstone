@@ -16,11 +16,11 @@ const NavigationBar = () => {
         <Navbar.Brand href="/">
         <img
               alt=""
-              src="https://res.cloudinary.com/do1eu7dnn/image/upload/v1695658483/Logo_piccolo_dmwdvp.jpg"
-              width="50"
-              height="40"
-              className="d-inline-block align-top"
-            />{' '}
+              src="https://res.cloudinary.com/do1eu7dnn/image/upload/v1695891132/GaberBlog_logo_no_background_yap8cw.png"
+              width="75"
+              height="50"
+              className="d-inline-block align-top logo-navbar"
+            />{'   '}
           GamerBlog
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

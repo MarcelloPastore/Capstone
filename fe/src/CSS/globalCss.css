@@ -1,3 +1,8 @@
+.centration {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .description {
     max-height: 3em; /* Limit to three rows of text */
     overflow: hidden;
@@ -12,12 +17,234 @@
   }
   
 .navbar-color {
-  background-color: #708a99; 
+  background-color: #a193bd; 
   color: #011526;
 }
+.logo-navbar{
+  margin-right: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+.all-icon {
+  margin-right: 15px;
+  font-size: 32px;
+  color: #012340;
+}
+.icon-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
-.centration {
+.main{
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  min-width: none;
+  background-color: #0d6073;
+  min-height: 75vh;
 }
+
+/** footer CSS  */
+.main-section-footer {
+  background-color: #a193bd;
+  color: #011526;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding: 0;
+}
+.copyright-style {
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  text-decoration: underline;
+  text-shadow: #011526;
+  font-weight: bold;
+  font-size: small;
+}
+.copyright-style > p {
+  margin: 5px;
+  padding: 10px;
+}
+.footer-img-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+}
+.footer-list > p{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 15px;
+}
+/** end footer css */
+.button-search {
+  margin-left: 10px;
+  border-radius: 10px;
+  background-color: #0d6073;
+  border: solid 2px #a193bd;
+}
+.button-search > span {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+/** Start searchbar css*/
+.SearchBar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+
+/** End searchbar css*/
+
+/** start login section css*/
+.login-section {
+  display: flex;
+  background-color: antiquewhite;
+  margin: 5%;
+  border-radius: 25px;
+  padding: 2rem;
+}
+
+.container-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.button-login {
+  margin: 10px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: white;
+  background-color: #012340;
+  border-radius: 2rem;
+  border: 2px solid #ffff;
+  box-shadow: 3px 3px 7px #012340;
+}
+.button-login-git {
+  margin: 10px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: white;
+  background-color: #6e6666;
+  border-radius: 2rem;
+  border: 2px solid #ffff;
+  box-shadow: 3px 3px 7px #6e6666;
+}
+.button-logout {
+  margin: 10px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: rgb(0, 0, 0);
+  background-color: #ff0000;
+  border-radius: 2rem;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 7px #6e6666;
+}
+/** end login section css*/
+
+/** start signIn session css */
+
+.button-signIn {
+  margin: 10px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: #ffff;
+  background-color: #a193bd;
+  border-radius: 2rem;
+  border: 2px solid #ffff;
+  box-shadow: 3px 3px 7px #6e6666;
+}
+
+.signIn-modal-body > form{
+  display: flex;
+  flex-direction: column;
+  justify-content: initial;
+  height: 50vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.signIn-modal-body>form>input {
+  margin-bottom: 1rem;
+  align-self: flex-start;
+  border-radius: 0.6rem;
+  color: black;
+  background-color: rgba(141, 141, 141, 0.37);
+}
+.signIn-modal-body>form>input>span {
+  color: black;
+}
+.inputFile {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.submit-signIn{
+align-self: center;
+justify-self: center;
+margin: 10px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: #ffff;
+  background-color: #302d2d;
+  border-radius: 2rem;
+  border: 2px solid #ffff;
+  box-shadow: 3px 3px 7px #6e6666;
+}
+
+/**end signIn session css */
+
+/**start hero session css*/
+
+.container-hero {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: #061940;
+  color: white;
+}
+.row-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 2rem;
+}
+.col-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.col-hero > img {
+  background-color: lightgray;
+  border-radius: 15rem;
+  margin: 2rem;
+}
+.col-hero > p {
+  max-width: 40%;
+  font-size: x-large;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-style: italic;
+
+}
+
+.col-hero-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col-hero-1 > p {
+  max-width: 50%;
+  font-size: large;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+}
+/**end hero session css*/

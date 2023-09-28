@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap';
-
+import { Form } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import '../CSS/globalCss.css';
 const SearchBar = ({ posts, setPosts, handler }) => {
 
-    const [ searchTerm, setSearchTerm ] = useState('');
-    
-    const filterPosts = (e) => {    
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filterPosts = (e) => {
         e.preventDefault();
 
-        const filterPosts = Array.isArray(posts) && 
-        posts.filter((post) =>
-        post.title.toLowerCase()
-        .includes(searchTerm.toLowerCase())
-        );
+        const filterPosts = Array.isArray(posts) &&
+            posts.filter((post) =>
+                post.title.toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+            );
         console.log('posts: ' + posts);
         setPosts(filterPosts);
     };
@@ -23,27 +25,30 @@ const SearchBar = ({ posts, setPosts, handler }) => {
         setSearchTerm(value);
     }
 
-  return (
-    <div style={{display: 'flex', alignContent: 'center', justifyContent:'center'}}>
-                <form 
-                style={{display: 'flex'}}
+    return (
+        <div className='SearchBar-container'>
+            <form
+                style={{ display: 'flex' }}
                 onSubmit={filterPosts}
-                >
-                    <Form.Control 
+            >
+                <Form.Control
                     name='search bar'
-                    onChange={(e) =>handleReset(e.target.value)}
-                    type='text' 
+                    onChange={(e) => handleReset(e.target.value)}
+                    type='text'
                     placeholder='Search...'
-                    />
-                    <Button 
+                />
+                <button className='button-search'
                     type='submit'
-                    >
-                        Cerca
-                    </Button>
-                </form>
-                
-    </div>
-  )
+                >
+                    <span>
+                        <FontAwesomeIcon icon={faSearch} color='white'/>
+
+                    </span>
+                </button>
+            </form>
+
+        </div>
+    )
 }
 
 export default SearchBar
