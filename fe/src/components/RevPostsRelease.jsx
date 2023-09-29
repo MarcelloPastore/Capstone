@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Row, Container, Col} from 'react-bootstrap';
+import { Row, Container, Col } from 'react-bootstrap';
 import SingleCard from './SingleCard';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from '../states/revPostStates';
@@ -18,7 +18,7 @@ const RevPostsRelease = () => {
   useEffect(() => {
     handler()
   })
-  
+
   return (
     <div className='RevPostBody-style '>
       <SearchBar posts={posts} setPosts={setPosts} handler={handler} />
@@ -28,21 +28,31 @@ const RevPostsRelease = () => {
             posts.reviewPosts.map((post) => {
               return (
                 <Col xs={12} sm={6} md={4} lg={3} key={post._id}>
-                  <Link to={'/Success/'+ post._id} className='link-card'>
-                  <SingleCard
-                    title={post.title}
-                    img={post.img1}
-                    description={post.description}
-                    user={post.user.nickname}
-                    likes={post.likes}
-                    views={post.views}
-                  />
+                  <Link to={'/Success/' + post._id} className='link-card'>
+                    <SingleCard
+                      title={post.title}
+                      img={post.img1}
+                      description={post.description}
+                      user={post.user.nickname}
+                      likes={post.likes}
+                      views={post.views}
+                    />
                   </Link>
                 </Col>
               );
             })}
         </Row>
       </Container>
+      <div className="pagination">
+        <a href='/' >&laquo;</a>
+        <a href='/' className="active" >1</a>
+        <a href='/' >2</a>
+        <a href='/' >3</a>
+        <a href='/' >4</a>
+        <a href='/' >5</a>
+        <a href='/' >6</a>
+        <a href='/' >&raquo;</a>
+      </div>
     </div>
 
   );

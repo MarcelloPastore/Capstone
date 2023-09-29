@@ -38,4 +38,9 @@
   .card-button {
     margin-top: 10px;
   }
-  
+  .RevPostBody-style {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
