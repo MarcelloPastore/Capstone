@@ -45,7 +45,7 @@ revPost.post('/revPosts/cloudUpload', cloudUpload.single('img1'), verifyToken, a
 
 //! GET request to fetch all review posts
 revPost.get('/revPosts', async (req, res) => {
-    const { page = 1, pageSize = 8 } = req.query;
+    const { page = 1, pageSize = 50 } = req.query;
 
     try {
         // Use Mongoose query to fetch review posts with pagination and populate 'user' field

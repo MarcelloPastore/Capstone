@@ -3,14 +3,16 @@ import { Row, Container, Col } from 'react-bootstrap';
 import SingleCard from './SingleCard';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from '../states/revPostStates';
-import SearchBar from './SearchBar';
 import '../CSS/RevPostRelease.css'; // Import the CSS file
 import '../CSS/globalCss.css';
 import { Link } from 'react-router-dom';
 
+
+
+
 const RevPostsRelease = () => {
-  const [posts, setPosts] = useState([])
-  const allPosts = useSelector(selectAllPosts)
+  const [posts, setPosts] = useState([]);
+  const allPosts = useSelector(selectAllPosts);
   const handler = () => {
     setPosts(allPosts);
   }
@@ -18,10 +20,10 @@ const RevPostsRelease = () => {
   useEffect(() => {
     handler()
   })
+  
 
   return (
     <div className='RevPostBody-style '>
-      <SearchBar posts={posts} setPosts={setPosts} handler={handler} />
       <Container>
         <Row className="justify-content-center">
           {Array.isArray(posts.reviewPosts) &&
@@ -43,16 +45,6 @@ const RevPostsRelease = () => {
             })}
         </Row>
       </Container>
-      <div className="pagination">
-        <a href='/' >&laquo;</a>
-        <a href='/' className="active" >1</a>
-        <a href='/' >2</a>
-        <a href='/' >3</a>
-        <a href='/' >4</a>
-        <a href='/' >5</a>
-        <a href='/' >6</a>
-        <a href='/' >&raquo;</a>
-      </div>
     </div>
 
   );
