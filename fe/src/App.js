@@ -28,10 +28,10 @@ const App = () => {
         <Route exact path='/' element={<Home />} />
         <Route path='/review' element={<Review />}/>
         <Route path='/login' element={<Login />}/>
+        <Route path='/success/:id' element={<Success />} />
 
         <Route element={<ProtectedRoutes />}> 
           <Route path='/account' element={<Account />} />
-          <Route path='/success' element={<Success />} />
         </Route>
       </Routes>
     </Router>

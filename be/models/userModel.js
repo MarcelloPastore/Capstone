@@ -19,6 +19,7 @@ const UserModelSchema = new mongoose.Schema({
     profilePicture: {
         type: String,
         required: false,
+        default: 'https://res.cloudinary.com/do1eu7dnn/image/upload/v1695891132/GaberBlog_logo_no_background_yap8cw.png'
     },
     // emailAddress
     email:{

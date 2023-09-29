@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSession } from '../../middleware/ProtectedRoutes';
-
+import '../../CSS/globalCss.css';
 
 const AddPostModal = () => {
   const [show, setShow] = useState(false);
@@ -16,8 +16,6 @@ const AddPostModal = () => {
   const token = JSON.parse(localStorage.getItem('userLoggedIn'));
   const session = useSession();
 
-  const [uploadedImg, setUploadedImg] = useState(''); // State to store the uploaded image path
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -27,23 +25,23 @@ const AddPostModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const fileData = new FormData();
       fileData.append('img1', formData.img);
-  
+
       const uploadResponse = await fetch('http://localhost:6969/revPosts/cloudUpload', {
         method: 'POST',
-        headers:{
+        headers: {
           'Authorization': `Bearer ${token}`
         },
         body: fileData,
       });
-  
+
       if (uploadResponse.ok) {
         const { img1: imagePath } = await uploadResponse.json();
-        setUploadedImg(imagePath);
-  
+
+
         const postFormData = {
           title: formData.title,
           img1: imagePath,
@@ -59,7 +57,7 @@ const AddPostModal = () => {
           },
           body: JSON.stringify(postFormData),
         });
-  
+
         if (createResponse.ok) {
           // Post created successfully
           handleClose();
@@ -77,50 +75,49 @@ const AddPostModal = () => {
       // Handle other errors that may occur
     }
   };
-  
+
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Create Review Post
-      </Button>
+    <div className='background'>
+      <button className='create-button' onClick={handleShow}>
+        Crea una nuova recensione
+      </button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+      <Modal show={show} onHide={handleClose} >
+        <Modal.Header closeButton style={{ backgroundColor: 'antiquewhite' }}>
           <Modal.Title>Create a Review Post</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <input
-              type="text"
-              name="title"
-              placeholder="Title"
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            />
-            <input type="file" name="img1" onChange={handleFileChange} />
-            <textarea
-              name="description"
-              cols="30"
-              rows="10"
-              placeholder="Description"
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            ></textarea>
-            <button type="submit">Submit</button>
-          </form>
-          {uploadedImg && ( // Display the uploaded image if available
-            <div>
-              <p>Uploaded Image:</p>
-              <img src={`http://localhost:6969${uploadedImg}`} alt="Uploaded" />
-            </div>
-          )}
+        <Modal.Body style={{ backgroundColor: 'antiquewhite' }}>
+          <div className='modal-body-review'>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+              <input
+                type="text"
+                name="title"
+                placeholder="Title"
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              />
+              <div className='inputFile'>
+                <input type="file" name="img1" onChange={handleFileChange} />
+              </div>
+              <textarea
+                name="description"
+                cols="30"
+                rows="10"
+                placeholder="Description"
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              >
+              </textarea>
+              <button className='submit-signIn' type="submit">Submit</button>
+            </form>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{ backgroundColor: 'antiquewhite' }}>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

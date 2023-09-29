@@ -136,6 +136,7 @@ user.post('/user/create', userBodyParams, validateUserBody, async (req, res) => 
       const newUser = new userModel({
         name: req.body.name,
         surname: req.body.surname,
+        profilePicture: req.body.profilePicture,
         age: req.body.age,
         email: req.body.email,
         nickname: req.body.nickname,

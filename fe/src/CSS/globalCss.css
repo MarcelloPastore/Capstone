@@ -5,28 +5,31 @@
 }
 
 .navbar-color {
-  background-color: #a193bd; 
+  background-color: #a193bd;
   color: #011526;
 }
-.logo-navbar{
+
+.logo-navbar {
   margin-right: 10px;
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
 }
+
 .all-icon {
   margin-right: 15px;
   font-size: 32px;
   color: #012340;
 }
-.icon-container{
+
+.icon-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.main{
+.main {
   display: flex;
   flex-direction: column;
   min-width: none;
@@ -42,6 +45,7 @@
   margin-bottom: 0;
   padding: 0;
 }
+
 .copyright-style {
   display: flex;
   justify-content: space-between;
@@ -51,23 +55,34 @@
   font-weight: bold;
   font-size: small;
 }
-.copyright-style > p {
+
+.copyright-style>p {
   margin: 5px;
   padding: 10px;
 }
-.footer-img-container{
+
+.footer-img-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   height: 100%;
 }
-.footer-list > p{
+
+.footer-img-container>img {
+  width: 100%;
+  height: auto;
+  min-width: 25vh;
+  min-height: 20vh;
+}
+
+.footer-list>p {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   text-decoration: underline;
   font-size: 15px;
 }
+
 /** end footer css */
 .button-search {
   margin-left: 10px;
@@ -75,10 +90,12 @@
   background-color: #0d6073;
   border: solid 2px #a193bd;
 }
-.button-search > span {
+
+.button-search>span {
   padding-left: 5px;
   padding-right: 5px;
 }
+
 /** Start searchbar css*/
 .SearchBar-container {
   display: flex;
@@ -105,7 +122,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
 }
 
 .button-login {
@@ -117,6 +134,7 @@
   border: 2px solid #ffff;
   box-shadow: 3px 3px 7px #012340;
 }
+
 .button-login-git {
   margin: 10px;
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -126,6 +144,7 @@
   border: 2px solid #ffff;
   box-shadow: 3px 3px 7px #6e6666;
 }
+
 .button-logout {
   margin: 10px;
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -136,6 +155,7 @@
   border: 2px solid #000000;
   box-shadow: 3px 3px 7px #6e6666;
 }
+
 /** end login section css*/
 
 /** start signIn session css */
@@ -150,7 +170,7 @@
   box-shadow: 3px 3px 7px #6e6666;
 }
 
-.signIn-modal-body > form{
+.signIn-modal-body>form {
   display: flex;
   flex-direction: column;
   justify-content: initial;
@@ -167,18 +187,21 @@
   color: black;
   background-color: rgba(141, 141, 141, 0.37);
 }
+
 .signIn-modal-body>form>input>span {
   color: black;
 }
+
 .inputFile {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
-.submit-signIn{
-align-self: center;
-justify-self: center;
-margin: 10px;
+
+.submit-signIn {
+  align-self: center;
+  justify-self: center;
+  margin: 10px;
   padding: 0.5rem 1rem 0.5rem 1rem;
   color: #ffff;
   background-color: #302d2d;
@@ -198,6 +221,7 @@ margin: 10px;
   background-color: #061940;
   color: white;
 }
+
 .row-hero {
   display: flex;
   flex-direction: column;
@@ -205,18 +229,21 @@ margin: 10px;
   align-content: center;
   margin: 2rem;
 }
+
 .col-hero {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
-.col-hero > img {
+
+.col-hero>img {
   background-color: lightgray;
   border-radius: 15rem;
   margin: 2rem;
 }
-.col-hero > p {
+
+.col-hero>p {
   max-width: 40%;
   font-size: x-large;
   font-family: 'Times New Roman', Times, serif;
@@ -230,12 +257,14 @@ margin: 10px;
   justify-content: center;
   align-items: center;
 }
-.col-hero-1 > p {
+
+.col-hero-1>p {
   max-width: 50%;
   font-size: large;
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
 }
+
 /**end hero session css*/
 
 /**start singleCard session CSS*/
@@ -244,29 +273,39 @@ margin: 10px;
   padding: 10px;
   height: 45vh;
   margin-bottom: 20px;
+  margin-top: 20px;
   background-color: #a193bd;
   border-radius: 2rem;
-  
+  box-shadow: 7px 10px 20px #000000;
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
-.card-div{
+
+.singleCard-container:hover {
+  transform: scale(1.05);
+}
+
+.card-div {
   display: flex;
   flex-direction: column;
   background-color: antiquewhite;
   border-radius: 2rem;
   height: 100%;
 }
+
 .img-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50%;
 }
-.img-container > img {
+
+.img-container>img {
   max-width: 100%;
   height: 20vh;
-  object-fit: scale-down  ;
+  object-fit: scale-down;
   border-radius: 50%;
 }
+
 .card-body {
   display: flex;
   flex-direction: column;
@@ -274,21 +313,24 @@ margin: 10px;
   height: 50%;
   font-family: 'Times New Roman', Times, serif;
 }
-.card-body > p  {
-margin-left: 5px;
-margin-right: 5px;
+
+.card-body>p {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-.card-body > h2 {
+.card-body>h2 {
   margin-left: 5px;
   margin-right: 5px;
   font-weight: bold;
   font-style: italic;
 
   overflow: hidden;
-  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflowed text */
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit to three lines */
+  -webkit-line-clamp: 2;
+  /* Limit to three lines */
   -webkit-box-orient: vertical;
 }
 
@@ -296,17 +338,21 @@ margin-right: 5px;
   display: flex;
   justify-content: space-between;
 }
-.card-icons > p {
+
+.card-icons>p {
   margin-left: 5px;
   margin-right: 5px;
 }
-.card-icons > p > span {
+
+.card-icons>p>span {
   margin-left: 10px;
   margin-right: 10px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
 .description {
-  max-height: 3em; /* Limit to three rows of text */
+  max-height: 3em;
+  /* Limit to three rows of text */
   overflow: hidden;
   margin-left: 5px;
   margin-right: 5px;
@@ -314,9 +360,11 @@ margin-right: 5px;
 
 .description-text {
   overflow: hidden;
-  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed text */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflowed text */
   display: -webkit-box;
-  -webkit-line-clamp: 1; /* Limit to three lines */
+  -webkit-line-clamp: 1;
+  /* Limit to three lines */
   -webkit-box-orient: vertical;
 }
 
@@ -329,6 +377,7 @@ margin-right: 5px;
   justify-content: center;
   align-items: center;
 }
+
 .biografia {
   display: flex;
   flex-direction: column;
@@ -341,23 +390,185 @@ margin-right: 5px;
 .user-info {
   display: flex;
   border: 1px solid blue;
-  margin: 30px;
-  padding: 20px;
+  margin: 20px;
+  padding: 10px;
   border-radius: 2rem;
   background-color: #061940;
   color: white;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-img-container {
-  border: 1px solid black;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  margin-right: 20px;
+  padding: 5px;
+  margin-right: 10px;
 
 }
 
+.user-img-container>img {
+  max-width: 100%;
+  height: auto;
+  object-fit: scale-down;
+  border-radius: 2rem;
+  background-color: antiquewhite;
+}
 
+.user-data-container>div>p {
+  margin: 10px 0px;
+  border-radius: 2rem;
+  color: #000000;
+  background-color: antiquewhite;
+  font-size: larger;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  padding: 5px;
+  box-shadow: 5px 5px 5px #0d6073;
+}
 
 /**end AuthorBio section CSS*/
+
+.link-card {
+  text-decoration: none;
+  color: #000000;
+}
+
+/**start detail review section CSS*/
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-container {
+  border: 1px solid #000000;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  justify-content: center;
+  padding: 20px;
+
+}
+
+.detail-container>h1 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 50px;
+  font-weight: bolder;
+  align-self: center;
+}
+
+.detail-img-container>img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: auto;
+  padding-bottom: 10px;
+  object-fit: cover;
+  border-radius: 3rem;
+}
+
+.detail-body-container {
+  border: 1px solid #000000;
+  border-radius: 2rem;
+  padding: 1rem;
+  background-color: #012340;
+  color: aliceblue;
+  box-shadow: 5px 5px 20px #000000;
+}
+
+.detail-user-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+.detail-user-info>p {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: x-large;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.detail-user-info>img {
+  width: 10vh;
+  height: auto;
+  margin-right: 20px;
+}
+
+/**end detail review section CSS*/
+
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e40ceca6;
+  /* Color of the scrollbar thumb */
+  border-radius: 5px;
+  /* Rounded corners for the thumb */
+}
+
+/* Hide the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: rgb(250, 235, 215);
+  /* Make the track background transparent */
+}
+
+.create-button {
+  margin: 10px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: white;
+  background-color: #012340;
+  border-radius: 2rem;
+  border: 2px solid #ffff;
+  box-shadow: 3px 3px 7px #012340;
+}
+
+.background {
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-body-review>form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000000;
+  justify-content: center;
+  padding: 1rem;
+}
+.modal-body-review>form>input, textarea {
+  margin-bottom: 1rem;
+  align-self: flex-start;
+  border-radius: 0.6rem;
+  align-self: stretch;
+  color: black;
+  box-shadow: 2px 2px 2px #000000;
+  text-align: justify;
+  text-indent: 1rem;
+  text-wrap: wrap;
+  font-family: 'Times New Roman', Times, serif;
+}
+.modal-body-review >form>input {
+  font-weight: bold;
+  font-size: large;
+}
+
+button {
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25);
+}
+button:hover {
+  transform: scale(1.03);
+}

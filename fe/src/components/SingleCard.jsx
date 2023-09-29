@@ -1,6 +1,4 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faEye } from '@fortawesome/free-solid-svg-icons';
 import '../CSS/globalCss.css';
@@ -8,7 +6,7 @@ import '../CSS/globalCss.css';
 const SingleCard = ({ img, title, description, likes, user, views }) => {
  
   return (
-    <div className='singleCard-container'>
+    <div className='singleCard-container' >
       <div className="card-div" >
         <div className='img-container'>
           <img src={img} alt="postImg." />

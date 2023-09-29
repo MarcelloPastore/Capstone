@@ -7,40 +7,44 @@ import { selectAllPosts } from '../states/revPostStates';
 import SearchBar from './SearchBar';
 import '../CSS/RevPostRelease.css'; // Import the CSS file
 import '../CSS/globalCss.css';
+import { Link } from 'react-router-dom';
+
 const RevPostsRelease = () => {
   const [posts, setPosts] = useState([])
   const allPosts = useSelector(selectAllPosts)
-  const handler = () =>{
+  const handler = () => {
     setPosts(allPosts);
   }
 
   useEffect(() => {
     handler()
   })
-  
-  
+
+
   return (
     <div className='RevPostBody-style '>
-    <SearchBar posts={posts} setPosts={setPosts} handler={handler}/>
-      <Row className="justify-content-center">
-        {Array.isArray(posts.reviewPosts) &&
-          posts.reviewPosts.map((post) => {
-            return (
-              <Col xs={12} sm={6} md={4} lg={3} key={post._id}>
-                <SingleCard
-                  title={post.title}
-                  img={post.img1}
-                  description={post.description}
-                  user={post.user.nickname}
-                  likes={post.likes}
-                  views={post.views}
-                />
-              </Col>
-            );
-          })}
-      </Row>
+      <SearchBar posts={posts} setPosts={setPosts} handler={handler} />
+        <Row className="justify-content-center">
+          {Array.isArray(posts.reviewPosts) &&
+            posts.reviewPosts.map((post) => {
+              return (
+                <Col xs={12} sm={6} md={4} lg={3} key={post._id}>
+                  <Link to={'/Success/'+ post._id} className='link-card'>
+                  <SingleCard
+                    title={post.title}
+                    img={post.img1}
+                    description={post.description}
+                    user={post.user.nickname}
+                    likes={post.likes}
+                    views={post.views}
+                  />
+                  </Link>
+                </Col>
+              );
+            })}
+        </Row>
     </div>
-    
+
   );
 };
 

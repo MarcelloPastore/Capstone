@@ -1,11 +1,15 @@
 import React from 'react'
 import NavigationBar from '../components/NavigationBar'
-
+import Footer from '../components/Footer'
+import ReviewDetail from '../components/ReviewDetail'
 const Success = () => {
   return (
     <>
       <NavigationBar />
-      <div>Success</div>
+      <div className='main'>
+        <ReviewDetail />
+      </div>
+      <Footer />
     </>
   )
 }

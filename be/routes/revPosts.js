@@ -52,7 +52,7 @@ revPost.get('/revPosts', async (req, res) => {
         const posts = await RevPostModel.find()
             .limit(pageSize)
             .skip((page - 1) * pageSize)
-            .populate('user', 'name surname email nickname') // Populate the 'user' field
+            .populate('user', 'name surname email nickname profilePicture') // Populate the 'user' field
             .populate('comments', 'content nickname') 
 
         // Fetch all review posts from the database (this line is not necessary)
@@ -158,13 +158,9 @@ revPost.get('/revPost/:revID', async (req, res) => {
 
     try {
         // Find a review post by its ID in the database and populate comments
-        const revById = await RevPostModel.findById(revID).populate({
-            path: 'comments',
-            populate: {
-                path: 'user',
-                select: 'nickname'
-            }
-        });
+        const revById = await RevPostModel.findById(revID)
+        .populate('user', 'name surname email nickname profilePicture') // Populate the 'user' field
+        .populate('comments', 'content nickname') 
 
         if (!revById) {
             return res.status(404).send({
