@@ -20,12 +20,11 @@ const NavigationBar = () => {
               width="75"
               height="50"
               className="d-inline-block align-top logo-navbar"
-            />{'   '}
-          GamerBlog
+            />
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto navSection" >
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/login">Login/Sign In</Nav.Link>
             <Nav.Link href="/account">Account</Nav.Link>

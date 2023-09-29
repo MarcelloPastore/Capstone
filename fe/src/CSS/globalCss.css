@@ -8,6 +8,13 @@
   background-color: #a193bd;
   color: #011526;
 }
+.navSection {
+  color: #000000;
+  font-size: larger;
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+}
 
 .logo-navbar {
   margin-right: 10px;
@@ -302,8 +309,9 @@
 .img-container>img {
   max-width: 100%;
   height: 20vh;
-  object-fit: scale-down;
-  border-radius: 50%;
+  object-fit: fill;
+  padding: 1rem;
+  border-radius: 2rem;
 }
 
 .card-body {
@@ -410,12 +418,13 @@
 
 }
 
-.user-img-container>img {
-  max-width: 100%;
+.user-img-container {
+  max-width: 25%;
   height: auto;
   object-fit: scale-down;
   border-radius: 2rem;
   background-color: antiquewhite;
+  
 }
 
 .user-data-container>div>p {
@@ -443,6 +452,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
 .detail-container {
@@ -453,7 +463,7 @@
   background-color: antiquewhite;
   justify-content: center;
   padding: 20px;
-
+  width: 50%;
 }
 
 .detail-container>h1 {
@@ -501,6 +511,7 @@
   width: 10vh;
   height: auto;
   margin-right: 20px;
+  border-radius: 2rem;
 }
 
 /**end detail review section CSS*/

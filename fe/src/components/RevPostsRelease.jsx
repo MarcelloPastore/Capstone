@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Row, Container, Col} from 'react-bootstrap';
 import SingleCard from './SingleCard';
 import { useSelector } from 'react-redux';
 import { selectAllPosts } from '../states/revPostStates';
@@ -19,11 +18,11 @@ const RevPostsRelease = () => {
   useEffect(() => {
     handler()
   })
-
-
+  
   return (
     <div className='RevPostBody-style '>
       <SearchBar posts={posts} setPosts={setPosts} handler={handler} />
+      <Container>
         <Row className="justify-content-center">
           {Array.isArray(posts.reviewPosts) &&
             posts.reviewPosts.map((post) => {
@@ -43,6 +42,7 @@ const RevPostsRelease = () => {
               );
             })}
         </Row>
+      </Container>
     </div>
 
   );

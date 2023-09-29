@@ -13,7 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFyY2Vsb
 GET http://localhost:6969/revPosts
 
 #####
-GET http://localhost:6969/revPosts?page=2
+GET http://localhost:6969/revPosts?page=1
 
 #####
 GET http://localhost:6969/revPosts/title?postTitle=titolo

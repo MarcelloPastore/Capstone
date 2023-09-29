@@ -15,46 +15,40 @@ const AuthorBio = () => {
         try {
             const response = await axios.get('http://localhost:6969/revPosts/byUserId?userId=' + session.id);
 
-            console.log('API Response:', response);
-
             if (response.status === 200) {
                 // Access the posts from response.data.payload
                 setPosts(response.data.payload);
-                console.log(posts);
+                
             }
         } catch (error) {
             console.error('API Error:', error);
         }
     }
-    console.log(session.id);
     const handleUser = async () => {
         try {
             const response = await axios.get('http://localhost:6969/users/' + session.id);
 
-            console.log('User: ', response)
-
             if (response.status === 200) {
                 setUser(response.data.user);
-                console.log('user: ', user);
             }
         } catch (error) {
             console.error('User error: ' + error);
         }
     }
 
-    useEffect(() => { 
-        handlePost(); 
+    useEffect(() => {
+        handlePost();
         handleUser();
-    }, []);
+    }, [session.id]);
 
     return (
         <div className='authorBio-section'>
             <div className='biografia'>
                 <h1>Bentornato {session.nickname}</h1>
                 <div className='user-info'>
-                    <div className='user-img-container'>
-                        <img src={user.profilePicture} alt="userImage.png" />
-                    </div>
+                    
+                        <img className='user-img-container'src={user.profilePicture} alt="userImage.png" />
+                    
                     <div className='user-data-container'>
                         <div >
                             <p> Name:  {user.name} </p>
@@ -67,27 +61,27 @@ const AuthorBio = () => {
                     </div>
                 </div>
             </div>
-           
+            <Container>
                 <Row className="justify-content-center">
                     {Array.isArray(posts) &&
                         posts.map((post) => {
                             return (
                                 <Col xs={12} sm={6} md={4} lg={3} key={post._id}>
-                                    <Link to={'/Success/'+ post._id} className='link-card'>
-                                    <SingleCard
-                                        title={post.title}
-                                        img={post.img1}
-                                        description={post.description}
-                                        user={post.user.nickname}
-                                        likes={post.likes}
-                                        views={post.views}
-                                    />
+                                    <Link to={'/Success/' + post._id} className='link-card'>
+                                        <SingleCard
+                                            title={post.title}
+                                            img={post.img1}
+                                            description={post.description}
+                                            user={post.user.nickname}
+                                            likes={post.likes}
+                                            views={post.views}
+                                        />
                                     </Link>
                                 </Col>
                             );
                         })}
                 </Row>
-            
+            </Container>
         </div>
 
     );

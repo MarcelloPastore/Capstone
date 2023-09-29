@@ -45,7 +45,7 @@ revPost.post('/revPosts/cloudUpload', cloudUpload.single('img1'), verifyToken, a
 
 //! GET request to fetch all review posts
 revPost.get('/revPosts', async (req, res) => {
-    const { page = 1, pageSize = 5 } = req.query;
+    const { page = 1, pageSize = 8 } = req.query;
 
     try {
         // Use Mongoose query to fetch review posts with pagination and populate 'user' field
@@ -92,7 +92,9 @@ revPost.get('/revPosts/byUserId', async (req, res) => {
   
     try {
       // Find posts by user's ID in the database
-      const postsByUserId = await RevPostModel.find({ 'user': userId });
+      const postsByUserId = await RevPostModel.find({ 'user': userId })
+      .populate('user', 'name surname email nickname profilePicture') // Populate the 'user' field
+    .populate('comments', 'content nickname') ;
   
       // If no posts are found, return a 404 error
       if (!postsByUserId || postsByUserId.length === 0) {

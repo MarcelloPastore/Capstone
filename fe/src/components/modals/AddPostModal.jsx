@@ -61,10 +61,10 @@ const AddPostModal = () => {
         if (createResponse.ok) {
           // Post created successfully
           handleClose();
-          // Add logic to update the post list or display a success message
+          window.location.reload();
         } else {
           console.error('Failed to create post:', createResponse.status, createResponse.statusText);
-          // Handle the error, e.g., show an error message to the user
+          
         }
       } else {
         console.error('Failed to upload image:', uploadResponse.status, uploadResponse.statusText);

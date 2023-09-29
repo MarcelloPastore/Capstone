@@ -7,7 +7,7 @@ const SignInSession = () => {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
-        profilePicture: null,
+        profilePicture: 'https://res.cloudinary.com/do1eu7dnn/image/upload/v1695891132/GaberBlog_logo_no_background_yap8cw.png',
         surname: '',
         age: null,
         email: '',

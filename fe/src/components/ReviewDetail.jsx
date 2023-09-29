@@ -11,7 +11,7 @@ const ReviewDetail = () => {
   const handleSingleRevPost = async () => {
     try {
       const response = await axios.get('http://localhost:6969/revPost/' + id);
-      console.log('Single Post: ', response);
+      // console.log('Single Post: ', response);
 
       if (response.status === 200) {
         setReviewPost(response.data.review);
